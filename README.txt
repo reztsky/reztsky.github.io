@@ -1,30 +1,20 @@
-Dimension by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+=============================================================
+Nama Proyek: Portofolio Sultan Aulia Alfarizki
 
+Deskripsi Proyek:
+Portofolio Sultan Aulia Alfarizki adalah situs web yang memperkenalkan diri, menampilkan project, dan memberikan informasi tentang pengalaman serta keterampilan dalam bidang web developer. Tujuan utama dari proyek ini adalah untuk memperkenalkan kepada calon klien, pengusaha, atau perusahaan.
 
-This is Dimension, a fun little one-pager with modal-ized (is that a word?) "pages"
-and a cool depth effect (click on a menu item to see what I mean). Simple, fully
-responsive, and kitted out with all the usual pre-styled elements you'd expect.
-Hope you dig it :)
+Cara Menggunakan:
+1. Buka situs web reztsky.github.io di peramban web Anda.
+2. Jelajahi berbagai bagian situs web untuk mempelajari lebih lanjut tentang saya dan project saya.
+3. Untuk menghubungi saya, silahkan gunakan tautan media sosial yang disediakan pada halaman "Contact".
 
-Demo images* courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
-you can use for pretty much whatever.
+Lisensi:
+Unlicensed
 
-(* = not included)
+Kontak:
+Untuk pertanyaan lebih lanjut atau masukan, silakan hubungi Sultan  di sultaninot@gmail.com.
 
-AJ
-aj@lkn.io | @ajlkn
-
-
-Credits:
-
-	Demo Images:
-		Unsplash (unsplash.com)
-
-	Icons:
-		Font Awesome (fontawesome.io)
-
-	Other:
-		jQuery (jquery.com)
-		Responsive Tools (github.com/ajlkn/responsive-tools)
+Catatan:
+-
+=============================================================
