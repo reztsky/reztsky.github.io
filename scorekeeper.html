@@ -1,32 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect with Countdown</title>
-</head>
-<body>
-    <p>Link Dialihkan otomatis ke <a id="redirect-link" href="http://sulltan.site/scorekeeper.html">www.sulltan.site</a> dalam <span id="countdown">3</span> detik.</p>
-
-    <script>
-        const url = "http://sulltan.site/"; // Replace with your target URL
-        const linkElement = document.getElementById('redirect-link');
-        const countdownElement = document.getElementById('countdown');
-        let countdown = 3;
-
-        // Update the href attribute of the link element
-        linkElement.href = url;
-
-        // Update the countdown every second
-        const countdownInterval = setInterval(() => {
-            countdown -= 1;
-            countdownElement.textContent = countdown;
-
-            if (countdown <= 0) {
-                clearInterval(countdownInterval);
-                window.location.href = url;
-            }
-        }, 1000); // 1000 milliseconds = 1 second
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sull | ScoreKeeper</title>
+    <link rel="icon" href="images/icon.png" type="image/x-icon"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<style>
+    .edit {
+        display: block;
+    }
+
+    .disabled {
+        display: none;
+    }
+
+    .keyboard-bot {
+        margin: auto;
+    }
+
+    .keyboard-bot,
+    .button-keyboard {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .td-on-active {
+        background-color: rgba(171, 227, 240, 0.986) !important;
+    }
+</style>
+
+<body style="background-color: #0b3954">
+    <div class="container-fluid" id="app">
+        <div class="row" style="padding-bottom: 150px">
+            <div class="col-md-12 collapse" id="menu" style="background-color: aqua">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="lead">
+                            Jumlah Pemain
+                            <button class="btn btn-danger btn-sm" v-on:click="DecrementPlayer">
+                                -
+                            </button>
+                            <b>{{ pemain }}</b>
+                            <button class="btn btn-primary btn-sm" v-on:click="IncrementPlayer">
+                                +
+                            </button>
+                        </p>
+                    </li>
+                    <li class="nav-item">
+                        <p class="lead">
+                            Jumlah Game
+                            <button class="btn btn-danger btn-sm" v-on:click="DecrementGame">
+                                -
+                            </button>
+                            <b>{{ game }}</b>
+                            <button v-on:click="IncrementGame" class="btn btn-primary btn-sm">
+                                +
+                            </button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12 py-2 ">
+                <div class="">
+                    <a class="btn btn-warning" href="index.html">Back</a>
+                    <button class="btn btn-primary py-1 px-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#menu" aria-expanded="false" aria-controls="menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15"
+                            viewBox="0 0 50 50">
+                            <path
+                                d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="btn btn-danger py-1 px-2" type="button" v-on:click="reset()">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15"
+                            viewBox="0 0 30 30">
+                            <path
+                                d="M 15 3 C 8.9134751 3 3.87999 7.5533546 3.1132812 13.439453 A 1.0001 1.0001 0 1 0 5.0957031 13.697266 C 5.7349943 8.7893639 9.9085249 5 15 5 C 17.766872 5 20.250574 6.1285473 22.058594 7.9414062 L 20 10 L 26 11 L 25 5 L 23.470703 6.5292969 C 21.300701 4.3575454 18.309289 3 15 3 z M 25.912109 15.417969 A 1.0001 1.0001 0 0 0 24.904297 16.302734 C 24.265006 21.210636 20.091475 25 15 25 C 11.977904 25 9.2987537 23.65024 7.4648438 21.535156 L 9 20 L 3 19 L 4 25 L 6.0488281 22.951172 C 8.2452659 25.422716 11.436061 27 15 27 C 21.086525 27 26.12001 22.446646 26.886719 16.560547 A 1.0001 1.0001 0 0 0 25.912109 15.417969 z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="my-2">
+                    <table class="table table-bordered table-striped" id="tableku">
+                        <thead class="table-primary">
+                            <tr class="header-area" style="position: sticky !important; top: 0 !important">
+                                <th v-for="(player, index) in pemains">
+                                    <span style="cursor: pointer"
+                                        v-on:click="EditPlayerName(index)">{{ player . name }}</span>
+                                    <input type="text" class="form-contro" v-model="player.name"
+                                        v-bind:class="[ isEditable ? 'edit' : 'disabled']" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="c in game">
+                                <td v-for="(player , index) in pemains" v-on:click="PointerScore(c,index)"
+                                    style="cursor: pointer" class="text-white">
+                                    {{ player . points[c - 1] }}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="table-primary">
+                            <tr>
+                                <td v-for="(player , index) in pemains" class="">
+                                    <b> {{ TotalScore(player . points) }}</b>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="position: fixed; bottom: 0px; background-color: white">
+            <button class="btn btn-default bg-white text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#keyboard-bot" aria-expanded="false" aria-controls="menu">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
+                    viewBox="0 0 50 50">
+                    <path
+                        d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z">
+                    </path>
+                </svg>
+                <span class="text-dark">Keyboard</span>
+            </button>
+            <div class="collapse" id="keyboard-bot">
+                <div class="card-body">
+                    <div class="row">
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(100)">
+                            +100
+                        </button>
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(50)">
+                            +50
+                        </button>
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(10)">
+                            +10
+                        </button>
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(5)">
+                            +5
+                        </button>
+                    </div>
+                    <div class="row my-2">
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(-100)">
+                            -100
+                        </button>
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(-50)">
+                            -50
+                        </button>
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(-10)">
+                            -10
+                        </button>
+                        <button class="btn btn-primary" style="width: 70px; margin: 5px" v-on:click="AddPoint(-5)">
+                            -5
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                isEditable: false,
+                pemain: 4,
+                game: 10,
+                pemains: [{
+                        name: "player-1",
+                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    },
+                    {
+                        name: "player-2",
+                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    },
+                    {
+                        name: "player-3",
+                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    },
+                    {
+                        name: "player-4",
+                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    },
+                ],
+                temp_index: 0,
+                temp_gameRow: 0,
+            };
+        },
+        mounted() {
+            if (localStorage.pemain) {
+                this.pemain = parseInt(localStorage.pemain);
+            }
+            if (localStorage.game) {
+                this.game = parseInt(localStorage.game);
+            }
+            if (localStorage.getItem("pemains")) {
+                this.pemains = JSON.parse(localStorage.pemains);
+            }
+        },
+        watch: {
+            pemain(newPemain) {
+                localStorage.pemain = newPemain;
+            },
+            game(newGame) {
+                localStorage.game = newGame;
+            },
+            pemains(newPemains) {
+                localStorage.pemains = JSON.stringify(newPemains);
+            },
+        },
+
+        methods: {
+            DecrementPlayer: function() {
+                this.pemain = this.pemain - 1;
+                this.pemains.pop();
+                localStorage.pemain = this.pemain;
+                localStorage.pemains = JSON.stringify(this.pemains);
+            },
+            IncrementPlayer: function() {
+                this.pemain = this.pemain + 1;
+                var point = new Array();
+                for (var i = 0; i < this.game; i++) {
+                    point.push(0);
+                }
+
+                this.pemains.push({
+                    name: "wagiman" + this.pemain,
+                    points: point,
+                });
+                localStorage.pemain = this.pemain;
+                localStorage.pemains = JSON.stringify(this.pemains);
+            },
+            DecrementGame: function() {
+                this.game = this.game - 1;
+
+                this.pemains.forEach(function(item, index) {
+                    item.points.pop();
+                });
+                localStorage.game = this.game;
+                localStorage.pemains = JSON.stringify(this.pemains);
+            },
+            IncrementGame: function() {
+                this.game = this.game + 1;
+
+                this.pemains.forEach(function(item, index) {
+                    item.points.push(0);
+                });
+                localStorage.game = this.game;
+                localStorage.pemains = JSON.stringify(this.pemains);
+            },
+            EditPlayerName: function(index) {
+                this.isEditable = !this.isEditable;
+                localStorage.pemains = JSON.stringify(this.pemains);
+            },
+            TotalScore: function(data) {
+                let total = 0;
+                data.forEach(function(item, index) {
+                    total = total + item;
+                });
+
+                return total;
+            },
+            PointerScore: function(game, index) {
+                if (this.temp_gameRow == game && this.temp_index == index)
+                    document
+                    .getElementById("tableku")
+                    .rows[game].cells[index].classList.remove("td-on-active");
+                else {
+                    var finclass = document.getElementsByClassName("td-on-active");
+                    if (finclass.length > 0)
+                        finclass[0].classList.remove("td-on-active");
+                    document
+                        .getElementById("tableku")
+                        .rows[game].cells[index].classList.add("td-on-active");
+                    this.temp_gameRow = game;
+                    this.temp_index = index;
+                }
+            },
+            AddPoint: function(nilai) {
+                var gamePoint = this.pemains[this.temp_index].points;
+                var calc = gamePoint[this.temp_gameRow - 1] + nilai;
+                Vue.set(gamePoint, this.temp_gameRow - 1, calc);
+                localStorage.pemains = JSON.stringify(this.pemains);
+            },
+            reset: function() {
+                if (confirm('Yakin Mereset Semua Data Permainan ?')===true) {
+                    localStorage.removeItem("pemain");
+                    localStorage.removeItem("game");
+                    localStorage.removeItem("pemains");
+                    location.reload(true);
+                }
+            },
+        },
+    });
+</script>
+
 </html>
