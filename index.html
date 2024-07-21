@@ -5,147 +5,105 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sulltan.Site</title>
+    <link rel="stylesheet" href="./assets/css/new-custom-style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="icon" href="./images/icon.png">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
-    * {
-        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-        background-color: #F5F7F8 !important;
-    }
-
-    .container-xsm {
-        max-width: 750px;
-    }
-
-    .c-semi-black {
-        color: #37352ff6 !important;
-    }
-
-    .c-semi-black-2 {
-        color: #37354A !important;
-    }
-
-    .font-custom {
-        font-size: 0.95em;
-    }
-
-    .fs-7 {
-        font-size: 15px;
-        ;
-    }
-
-
-    .rotate-90 {
-        transform: rotate(90deg);
-    }
-
-    .rotate-180 {
-        transform: rotate(180deg);
-    }
+   
 </style>
 
 <body>
     <div class="fixed-top">
         <nav class="d-flex shadow-sm px-5 py-2 bg-white justify-content-between ">
-            <div class="title fs-7 fw-bold">SULLTAN.site</div>
-            <ul class="d-flex gap-2 list-unstyled p-0 m-0">
-                <li style="color: #f9f9f9; "
-                    class="wp-social-link wp-social-link-youtube has-contrast-color ticss-6b6c0132 wp-block-social-link">
-                    <!-- <a rel="noopener nofollow" target="_blank" href="https://www.youtube.com/@FajrulFx"
-                        class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24"
-                            version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                            <path
-                                d="M21.8,8.001c0,0-0.195-1.378-0.795-1.985c-0.76-0.797-1.613-0.801-2.004-0.847c-2.799-0.202-6.997-0.202-6.997-0.202 h-0.009c0,0-4.198,0-6.997,0.202C4.608,5.216,3.756,5.22,2.995,6.016C2.395,6.623,2.2,8.001,2.2,8.001S2,9.62,2,11.238v1.517 c0,1.618,0.2,3.237,0.2,3.237s0.195,1.378,0.795,1.985c0.761,0.797,1.76,0.771,2.205,0.855c1.6,0.153,6.8,0.201,6.8,0.201 s4.203-0.006,7.001-0.209c0.391-0.047,1.243-0.051,2.004-0.847c0.6-0.607,0.795-1.985,0.795-1.985s0.2-1.618,0.2-3.237v-1.517 C22,9.62,21.8,8.001,21.8,8.001z M9.935,14.594l-0.001-5.62l5.404,2.82L9.935,14.594z">
-                            </path>
-                        </svg></a> -->
-                </li>
-                <li style="color: #f9f9f9; "
-                    class="wp-social-link wp-social-link-instagram has-contrast-color wp-block-social-link">
+            <div class="title fs-7 fw-bold bg-white">SULLTAN.site</div>
+            <ul class="d-flex gap-3 list-unstyled p-0 m-0 bg-white">
+                <li class="bg-white"><a href="mailto:sultaninot@gmail.comn"><i class="fa fa-envelope fw-bold fa-lg"
+                            aria-hidden="true"></i></a></li>
+                <li class="bg-white"><a href="https://www.linkedin.com/in/sultan-aulia-7927901b5/"><i
+                            class="fa fa-linkedin-square fw-bold fa-lg" aria-hidden="true"></i></a></li>
+                <li class="">
                     <a rel="noopener nofollow" target="_blank" href="https://www.instagram.com/sull_a.a"
-                        class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24"
-                            version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                            <path
-                                d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z">
-                            </path>
-                        </svg>
+                        class="wp-block-social-link-anchor bg-white"><i class="fa fa-instagram bg-white fw-bold fa-lg"
+                            aria-hidden="true"></i>
                     </a>
                 </li>
-                <li style="color: #f9f9f9; " class="wp-social-link has-contrast-color wp-block-social-link">
-                    <!-- <a
-                        rel="noopener nofollow" target="_blank" href="https://discord.gg/fajrulfx"
-                        class="wp-block-social-link-anchor">
-                        <svg width="20" height="20" viewBox="0 0 17 17" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                            <path
-                                d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612">
-                            </path>
-                        </svg></a> -->
-                </li>
             </ul>
-            <!-- <ul class="d-flex gap-2 list-unstyled p-0 m-0">
-                <li>x</li>
-                <li>y</li>
-                <li>z</li>
-            </ul> -->
         </nav>
     </div>
     <div class="container-xsm mx-auto px-3 my-5 pt-3 pb-5">
         <h2 class="fw-bold mb-0">SULTAN AULIA ALFARIZKI</h2>
+        <p class="m-0 p-0">
+            <a href="mailto:sultaninot@gmail.com">sultaninot@gmail.com</a> | <a href="https://www.linkedin.com/in/sultan-aulia-7927901b5/">Linked In : Sultan Aulia</a>
+        </p>
         <br>
         <section class="intro">
             <h4 class="fw-semibold c-semi-black">FULLSTACK WEB DEVELOPER</h4>
-            <p class="mb-2 fs-6">
-                Halo Saya Sultan Aulia Alfarizki, Web Full Stack Developer yang bersemangat dengan misi menciptakan
-                pengalaman online yang luar biasa. Dengan perpaduan kreativitas dan kecakapan teknis, saya berkembang
-                dalam
-                dunia pengembangan web yang dinamis.
+            <p class="mb-2 fs-7">
+                Halo! Saya Sultan Aulia Alfarizki, seorang Web Full Stack Developer yang penuh semangat dalam menciptakan pengalaman online yang luar biasa. Saya senang memadukan kreativitas dan keterampilan teknis untuk menghasilkan solusi web yang menarik dan efektif.
             </p>
-            <p class="pb-0 fs-6">
-                Dari front-end hingga back-end, saya suka mendalami kode untuk mewujudkan ide. Perjalanan saya dalam
-                pengembangan web dimulai dengan ketertarikan pada bagaimana teknologi dapat mengubah ide menjadi
-                realitas
-                digital yang nyata. Selama bertahun-tahun, saya telah mengasah keterampilan saya dalam bahasa seperti
-                HTML,
-                CSS, JavaScript, serta keahlian dalam kerangka kerja seperti Laravel, React, Vue, Livewire, MySql,
-                PostgreSql.
+            <p class="pb-0 fs-7">
+                Saya menikmati menjelajahi kode dari front-end hingga back-end, menghidupkan ide-ide menjadi kenyataan digital. Perjalanan saya dimulai dari rasa penasaran tentang bagaimana teknologi bisa mengubah ide menjadi sesuatu yang nyata. Seiring waktu, saya telah mengasah keterampilan saya dalam bahasa seperti HTML, CSS, dan JavaScript, serta kerangka kerja seperti Laravel, React, Vue, Livewire, MySQL, dan PostgreSQL.
+            </p>
+            <p class="pb-0 fs-7">
+                Saya selalu siap membantu menciptakan solusi digital yang inovatif dan bermanfaat. Mari kita bekerja sama dan wujudkan ide-ide luar biasa!
             </p>
         </section>
         <hr class="bg-secondary border-2 border-top border-secondary" />
+    
         <section class="pengalaman-kerja mb-5">
             <h4 class="fw-semibold c-semi-black">Pengalaman Kerja</h4>
             <ul class="">
                 <li class="fw-semibold c-semi-black my-2">Website Full Stack Developer - Dinas Sosial Kota Surabaya
                     (2019 - Sekarang)
                     <ol class="fw-normal">
-                        <li class="py-1 fs-7">Bertanggung jawab dalam merancang dan mengembangkan aplikasi yang
-                            bertujuan untuk peningkatan kualitas pelayanan Dinas Sosial</li>
-                        <li class="py-1 fs-7">Mengelola dan Menyajikan data Keluarga Miskin untuk keperluan Internal
-                            maupun pihak Eksternal Terkait</li>
+                        <li class="py-1 fs-7">Merancang dan mengembangkan aplikasi untuk meningkatkan kualitas pelayanan Dinas Sosial, termasuk pembuatan dan pemeliharaan situs web serta aplikasi berbasis web yang responsif dan intuitif.</li>
+                        <li class="py-1 fs-7">Mengelola dan menyajikan data keluarga miskin untuk keperluan internal dan eksternal, menggunakan Excel dan SQL untuk analisis dan laporan yang mendukung pengambilan keputusan dan perencanaan program bantuan sosial.</li>
                     </ol>
                 </li>
-                <li class="fw-semibold c-semi-black my-2">Asisten Dosen Pemrograman dan Pengembangan Website (2019)</li>
-                <li class="fw-semibold c-semi-black my-2">Asisten Laboran Praktikum Algorithma Pemrograman (2018)</li>
+                <li class="fw-semibold c-semi-black my-2">Asisten Dosen Pemrograman dan Pengembangan Website (2019)
+                    <ol class="fw-normal">
+                        <li class="py-1 fs-7">
+                            Merancang dan mengembangkan materi kuliah dan praktik pemrograman web, termasuk HTML, CSS, JavaScript, dan teknologi backend.
+                        </li>
+                        <li class="py-1 fs-7">
+                            Memberikan bimbingan dan dukungan teknis kepada mahasiswa, membantu mereka memahami konsep dan menyelesaikan proyek.
+                        </li>
+                        <li class="py-1 fs-7">
+                            Mengadakan sesi praktik dan workshop untuk mengaplikasikan pengetahuan dalam pengembangan proyek web.
+                        </li>
+                    </ol>
+                </li>
+                <li class="fw-semibold c-semi-black my-2">Asisten Laboran Praktikum Algorithma Pemrograman (2018)
+                    <ol class="fw-normal">
+                        <li class="py-1 fs-7">Membantu dalam persiapan dan pelaksanaan sesi praktikum algoritma pemrograman.</li>
+                        <li class="py-1 fs-7">Memberikan bimbingan kepada mahasiswa dalam memahami konsep algoritma dan struktur data.</li>
+                        <li class="py-1 fs-7">Mengawasi penggunaan laboratorium komputer dan memastikan lingkungan belajar yang kondusif.</li>
+                    </ol>
+                </li>
             </ul>
         </section>
-        
-        <section class="pendidikan mb-5">
-            <h4 class="fw-semibold c-semi-black">Pendidikan</h4>
-            <ul>
-                <li class="fw-semibold c-semi-black mb-1">D3 Sistem Informasi (2016 - 2019)
-                    <p class="fw-normal fs-7 mb-2">Universitas Dinamika (Stikom Surabaya) Surabaya</p>
+
+        <section class="keahlian mb-5">
+            <h4 class="fw-semibold c-semi-black">Tools & Keahlian</h4>
+            <ul class="list-unstyled">
+                <li class="my-1">
+                    <b>Programming : </b> PHP, JavaScript, Java, Framework Laravel, Laravel Livewire, Vue Js, React Js, HTML, CSS
                 </li>
-                <li class="fw-semibold c-semi-black mb-1">Kejuruan Multimedia (2013 - 2016)
-                    <p class="fw-normal fs-7 mb-2">SMK Muhammadiyah 1 Surabaya</p>
-                </li>
-                <li class="fw-semibold c-semi-black mb-1">SMP Muhammadiyah 1 Surabaya (2010 - 2013)
-                </li>
+                <li class="my-1"><b>Database : </b>Mysql, PostgreSql</li>
+                <li class="my-1"><b>Data Analytics : </b>Structure Query Language(SQL), Microsoft Excel</li>
+                <li class="my-1"><b>Programming Tools : </b> Git, Navycat, Visual Code, Composer, Laragon, Node Js</li>
+                <li class="my-1"><b>Office : </b>Excel, Word, Power Point, Visio</li>
+                <li class="my-1"><b>Language : </b>Indonesia (Native), English </li>
             </ul>
+            <!-- <p class="my-0 py-0">
+                Saya juga mahir dalam analisis dan penyajian data menggunakan Microsoft Excel dan SQL. Dengan Excel, saya membuat laporan komprehensif, visualisasi data, dan analisis statistik. Sementara itu, dengan SQL, saya efisien dalam mengelola, mengolah, dan menganalisis data dalam database relasional. Kemampuan ini memungkinkan saya menginterpretasikan data dengan akurat dan menyajikan temuan yang relevan untuk mendukung keputusan bisnis.
+            </p> -->
         </section>
-    
-        <section class="project">
+        <section class="project mb-5">
             <h4 class="fw-semibold c-semi-black">Project</h4>
             <div class="d-grid gap-2">
                 <div class="d-flex align-items-center">
@@ -160,7 +118,7 @@
                         <a href="https://dbhcht-dinsos.surabaya.go.id/" class="text-muted fw-normal">Link Project</a>
                     </p>
                 </div>
-                <div class="collapse w-100" id="project-1">
+                <div class="collapse w-100 show" id="project-1">
                     <div class="ms-3 py-1 c-semi-black">
                         Sebuah aplikasi yang digunakan untuk mencatat transaksi terkait penyaluran bantuan sosial oleh
                         Dinas Sosial Kota Surabaya. Dimana terdapat beberapa kategori dalam bantuan sosial tersebut
@@ -180,7 +138,7 @@
                         <a href="https://dbhcht-dinsos.surabaya.go.id/" class="text-muted fw-normal">Link Project</a>
                     </p>
                 </div>
-                <div class="collapse w-100" id="project-2">
+                <div class="collapse w-100 show" id="project-2">
                     <div class="ms-3 py-1 c-semi-black">
                         Aplikasi yang digunakan untuk memonitoring penggunaan Bantuan Peralatan Modal Usaha, yang
                         bertujuan untuk mengetahui efektifitas bantuan tersebut terhadap sosial ekonomi penerima
@@ -198,7 +156,7 @@
                         <a href="https://pt-ayama.co.id/" class="text-muted fw-normal">Link Project</a>
                     </p>
                 </div>
-                <div class="collapse w-100" id="project-3">
+                <div class="collapse w-100 show" id="project-3">
                     <div class="ms-3 py-1 c-semi-black">
                         Aplikasi yang digunakan untuk mengelola stock barang dalam gudang, serta mencatat transaksi
                         barang keluar dan barang masuk
@@ -217,7 +175,7 @@
                         <a href="https://ocean-ppl.com/" class="text-muted fw-normal">Link Project</a>
                     </p>
                 </div>
-                <div class="collapse w-100" id="project-4">
+                <div class="collapse w-100 show" id="project-4">
                     <div class="ms-3 py-1 c-semi-black">
                         Aplikasi yang digunakan untuk controling, evaluasi dan analisa kegiatan dalam Port (pelabuhan)
                         serta memonitoring kelengkapan sarana dan prasarana dalam unit kapal
@@ -235,18 +193,32 @@
                         <a href="./scorekeeper.html" class="text-muted fw-normal">Link Project</a>
                     </p>
                 </div>
-                <div class="collapse w-100" id="project-5">
+                <div class="collapse w-100 show" id="project-5">
                     <div class="ms-3 py-1 c-semi-black">
                         Aplikasi untuk menghitung permainan kartu jenis Remy/Gin/Jokeran
                     </div>
                 </div>
             </div>
         </section>
+
+        <section class="pendidikan mb-5">
+            <h4 class="fw-semibold c-semi-black">Pendidikan</h4>
+            <ul>
+                <li class="fw-semibold c-semi-black mb-1">D3 Sistem Informasi (2016 - 2019)
+                    <p class="fw-normal fs-7 mb-2">Universitas Dinamika (Stikom Surabaya) Surabaya</p>
+                </li>
+                <li class="fw-semibold c-semi-black mb-1">Kejuruan Multimedia (2013 - 2016)
+                    <p class="fw-normal fs-7 mb-2">SMK Muhammadiyah 1 Surabaya</p>
+                </li>
+                <li class="fw-semibold c-semi-black mb-1">SMP Muhammadiyah 1 Surabaya (2010 - 2013)
+                </li>
+            </ul>
+        </section>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-</script>
+    </script>
 <script>
     function transformDegre(element) {
         // var triangle = this;
