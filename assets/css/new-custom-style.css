@@ -32,3 +32,53 @@
 .rotate-180 {
     transform: rotate(180deg);
 }
+
+@media print {
+ 
+    /* Hide elements that don't need to be printed */
+    /* Mengatur margin atas lebih kecil */
+    .container-xsm {
+        margin-top: 0.2in;
+        /* Mengatur margin atas lebih kecil */
+        margin-left: 0.5in;
+        margin-right: 0.5in;
+        margin-bottom: 0.5in;
+    }
+
+    .container-xsm {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .container-xsm.my-5 {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .container-xsm.px-3 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .container-xsm.pt-3 {
+        padding-top: 0 !important;
+    }
+
+    .container-xsm.pb-5 {
+        padding-bottom: 0 !important;
+    }
+    .fixed-top,
+    .title,
+    .d-flex {
+        display: none !important;
+    }
+
+    .project p a {
+        display: none !important;
+    }
+
+    .intro, .pengalaman-kerja, .keahlian, .project, .pendidikan {
+        page-break-inside: avoid !important;
+    }
+
+}

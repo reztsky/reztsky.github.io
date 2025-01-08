@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lirik Lagu</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        color: #1db954;
+        margin-bottom: 20px;
+      }
+
+      .lyrics-container {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 30px;
+        border-radius: 15px;
+        width: 1300px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      p {
+        font-size: 1.1em;
+        color: #666;
+      }
+
+      .lyrics {
+        scrollbar-width: none;
+        width: 48%;
+        height: 600px;
+        border: 2px solid #ccc;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #fdfdfd;
+        white-space: pre-wrap;
+        overflow-y: auto;
+        font-size: 1em;
+        color: #444;
+        line-height: 1.8;
+      }
+
+      .lyric-tampil {
+        scrollbar-width: none;
+        width: 48%;
+        overflow: auto;
+        background-color: orange;
+        font-size: 3em;
+        line-height: 1.6;
+        height: 600px;
+        border: 1px dashed #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        white-space: pre-wrap;
+        font-weight: bold;
+        scroll-behavior: smooth;
+        position: relative;
+      }
+
+      .lyric-tampil span {
+        display: inline-block;
+        padding: 5px;
+        padding-bottom: 25px;
+        line-height: 70px;
+        transition: color 0.2s;
+      }
+
+      .lyric-tampil span:hover {
+        color: white;
+        cursor: pointer;
+      }
+
+      button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #1db954;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      button:hover {
+        background-color: #169b42;
+      }
+
+      input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-right: 10px;
+        font-size: 1em;
+      }
+
+      #background-color {
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        border: none;
+      }
+
+      hr {
+        margin: 20px 0;
+        border: none;
+        height: 2px;
+        background: #ddd;
+      }
+
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .flex {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .lyrics,
+        .lyric-tampil {
+          width: 100%;
+        }
+
+        button,
+        input {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Lirik Lagu</h1>
+    <div class="lyrics-container">
+      <p>Salin dan tempel lirik lagu Anda ke kotak di bawah ini:</p>
+      <div class="flex">
+        <div id="lyrics" class="lyrics" contenteditable="true">
+          Tempel lirik di sini...
+        </div>
+        <div id="lyric-tampil" class="lyric-tampil"></div>
+      </div>
+      <button onclick="processLyrics()">Proses Lirik</button>
+      <hr />
+      <div class="flex">
+        <input
+          type="color"
+          id="background-color"
+          title="Pilih Warna Latar Belakang"
+        />
+        <button onclick="changeBackground()">Ubah Warna</button>
+      </div>
+    </div>
+
+    <script>
+      function autscroll(timedelay = 1000) {
+        const lyric_tampil = document.getElementById("lyric-tampil");
+        const minScrollHeight = 100; // Scroll step size in pixels
+        let height = 0;
+
+        const scroll = setInterval(function () {
+          if (height <= lyric_tampil.scrollHeight) {
+            lyric_tampil.scrollBy({
+              top: minScrollHeight,
+              behavior: "smooth",
+            });
+            height += minScrollHeight;
+          } else {
+            clearInterval(scroll);
+          }
+        }, timedelay);
+      }
+
+      function processLyrics() {
+        const lyric_tampil = document.getElementById("lyric-tampil");
+        lyric_tampil.innerHTML = "";
+        const lyricsDiv = document.getElementById("lyrics");
+        const rawText = lyricsDiv.innerText.trim();
+        const lines = rawText.split("\n");
+
+        lines.forEach((line) => {
+          if (line.trim()) {
+            const span = document.createElement("span");
+            span.textContent = line;
+            lyric_tampil.appendChild(span);
+            lyric_tampil.appendChild(document.createElement("br"));
+          }
+        });
+
+        // const scrollDelay = parseInt(document.getElementById("scroll").value) || 1000;
+        // autscroll(scrollDelay);
+      }
+
+      function changeBackground() {
+        const color = document.getElementById("background-color").value;
+        document.getElementById("lyric-tampil").style.backgroundColor = color;
+      }
+    </script>
+  </body>
+</html>
