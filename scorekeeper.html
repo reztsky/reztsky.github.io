@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sull | ScoreKeeper</title>
-    <link rel="icon" href="images/icon.png" type="image/x-icon"/>
+    <link rel="icon" href="images/icon.png" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <style>
@@ -35,6 +35,10 @@
 
     .td-on-active {
         background-color: rgba(171, 227, 240, 0.986) !important;
+    }
+
+    button {
+        touch-action: manipulation;
     }
 </style>
 
@@ -95,8 +99,8 @@
                         <thead class="table-primary">
                             <tr class="header-area" style="position: sticky !important; top: 0 !important">
                                 <th v-for="(player, index) in pemains">
-                                    <span style="cursor: pointer"
-                                        v-on:click="EditPlayerName(index)">{{ player . name }}</span>
+                                    <span style="cursor: pointer" v-on:click="EditPlayerName(index)">{{ player . name
+                                        }}</span>
                                     <input type="text" class="form-contro" v-model="player.name"
                                         v-bind:class="[ isEditable ? 'edit' : 'disabled']" />
                                 </th>
@@ -125,8 +129,7 @@
         <div style="position: fixed; bottom: 0px; background-color: white">
             <button class="btn btn-default bg-white text-white" type="button" data-bs-toggle="collapse"
                 data-bs-target="#keyboard-bot" aria-expanded="false" aria-controls="menu">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
-                    viewBox="0 0 50 50">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50">
                     <path
                         d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z">
                     </path>
@@ -177,21 +180,21 @@
                 pemain: 4,
                 game: 10,
                 pemains: [{
-                        name: "player-1",
-                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                        name: "player-2",
-                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                        name: "player-3",
-                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                        name: "player-4",
-                        points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
+                    name: "player-1",
+                    points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                },
+                {
+                    name: "player-2",
+                    points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                },
+                {
+                    name: "player-3",
+                    points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                },
+                {
+                    name: "player-4",
+                    points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                },
                 ],
                 temp_index: 0,
                 temp_gameRow: 0,
@@ -221,13 +224,13 @@
         },
 
         methods: {
-            DecrementPlayer: function() {
+            DecrementPlayer: function () {
                 this.pemain = this.pemain - 1;
                 this.pemains.pop();
                 localStorage.pemain = this.pemain;
                 localStorage.pemains = JSON.stringify(this.pemains);
             },
-            IncrementPlayer: function() {
+            IncrementPlayer: function () {
                 this.pemain = this.pemain + 1;
                 var point = new Array();
                 for (var i = 0; i < this.game; i++) {
@@ -241,41 +244,41 @@
                 localStorage.pemain = this.pemain;
                 localStorage.pemains = JSON.stringify(this.pemains);
             },
-            DecrementGame: function() {
+            DecrementGame: function () {
                 this.game = this.game - 1;
 
-                this.pemains.forEach(function(item, index) {
+                this.pemains.forEach(function (item, index) {
                     item.points.pop();
                 });
                 localStorage.game = this.game;
                 localStorage.pemains = JSON.stringify(this.pemains);
             },
-            IncrementGame: function() {
+            IncrementGame: function () {
                 this.game = this.game + 1;
 
-                this.pemains.forEach(function(item, index) {
+                this.pemains.forEach(function (item, index) {
                     item.points.push(0);
                 });
                 localStorage.game = this.game;
                 localStorage.pemains = JSON.stringify(this.pemains);
             },
-            EditPlayerName: function(index) {
+            EditPlayerName: function (index) {
                 this.isEditable = !this.isEditable;
                 localStorage.pemains = JSON.stringify(this.pemains);
             },
-            TotalScore: function(data) {
+            TotalScore: function (data) {
                 let total = 0;
-                data.forEach(function(item, index) {
+                data.forEach(function (item, index) {
                     total = total + item;
                 });
 
                 return total;
             },
-            PointerScore: function(game, index) {
+            PointerScore: function (game, index) {
                 if (this.temp_gameRow == game && this.temp_index == index)
                     document
-                    .getElementById("tableku")
-                    .rows[game].cells[index].classList.remove("td-on-active");
+                        .getElementById("tableku")
+                        .rows[game].cells[index].classList.remove("td-on-active");
                 else {
                     var finclass = document.getElementsByClassName("td-on-active");
                     if (finclass.length > 0)
@@ -287,14 +290,14 @@
                     this.temp_index = index;
                 }
             },
-            AddPoint: function(nilai) {
+            AddPoint: function (nilai) {
                 var gamePoint = this.pemains[this.temp_index].points;
                 var calc = gamePoint[this.temp_gameRow - 1] + nilai;
                 Vue.set(gamePoint, this.temp_gameRow - 1, calc);
                 localStorage.pemains = JSON.stringify(this.pemains);
             },
-            reset: function() {
-                if (confirm('Yakin Mereset Semua Data Permainan ?')===true) {
+            reset: function () {
+                if (confirm('Yakin Mereset Semua Data Permainan ?') === true) {
                     localStorage.removeItem("pemain");
                     localStorage.removeItem("game");
                     localStorage.removeItem("pemains");
