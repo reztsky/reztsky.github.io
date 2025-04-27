@@ -16,7 +16,8 @@
         .bg-primary {
             background-color: #ebe9dc;
         }
-        .bg-secondary{
+
+        .bg-secondary {
             background-color: #c7c5ba;
         }
     </style>
@@ -24,10 +25,10 @@
 </head>
 
 <body class="bg-secondary flex w-full justify-items-center items-center">
-    <div class="container w-full mx-auto">
+    <div class="container w-full mx-auto relative">
         <section class="cover-halaman flex flex-row flex-wrap w-full shadow">
-            <div class="md:w-6/12 w-12/12 bg-primary flex flex-wrap items-center justify-center py-5">
-                <div class="pengantin w-full min-h-screen flex flex-wrap items-center">
+            <div class="md:w-6/12 w-12/12 bg-primary flex flex-wrap items-center justify-center">
+                <div class="pengantin w-full h-screen flex flex-wrap items-center py-10">
                     <div class="w-full mt-20">
                         <div class="relative pt-10 mt-10">
                             <!-- Foto Background Tengah -->
@@ -45,7 +46,7 @@
                         </div>
                     </div>
 
-                    <div class="tempat-tanggal w-full mt-10">
+                    <div class="tempat-tanggal w-full md:mt-18">
                         <p class="md:text-2xl text-md w-full text-center italic font-[Plus_Jakarta_Sans] text-black">
                             07.09.2025
                         </p>
@@ -54,30 +55,32 @@
                     </div>
 
                     <!-- Nama Tamu -->
-                    <div class="nama-tamu w-full text-center z-10">
+                    <div class="nama-tamu w-full text-center z-10 -mt-10">
                         <p class="text-lg text-slate-700">Kepada yth Saudara/i</p>
-                        <p id="nama" class="text-slate-800 pt-1 font-bold text-lg">Sultan</p>
+                        <p id="nama" class="text-slate-800 pt-1 font-bold md:text-xl text-lg">Sultan</p>
                     </div>
                 </div>
             </div>
             <div class="md:w-6/12 w-12/12">
-                <img src="images/undangan/6.jpeg" class="max-h-screen w-full object-cover object-center " alt="">
+                <img src="images/undangan/6.jpeg" class="h-screen w-full object-cover object-center " alt="">
             </div>
         </section>
         <section
             class="w-full h-auto bg-primary shadow flex flex-wrap justify-center pt-20 pb-10 px-10  border-t-2 border-t-gray-300">
-            <h1 class="md:text-xl text-lg text-center md:w-7/12 w-12/12 font-[Noto_Sans] italic font-light">" Dan di antara tanda-tanda
+            <h1 class="md:text-xl text-lg text-center md:w-7/12 w-12/12 font-[Noto_Sans] italic font-light">" Dan di
+                antara tanda-tanda
                 kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan
                 merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang. Sesungguhnya pada yang
                 demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir. "
             </h1>
             <span class="text-center w-full text-lg pt-2 font-bold">Qs. Ar Rum : 21</span>
-            
+
         </section>
         <section class="w-full h-auto bg-primary shadow flex flex-wrap border-t-2 border-t-gray-300">
             <div class="md:w-6/12 w-12/12 min-h-screen relative">
                 <img src="images/undangan/5.jpeg" class="h-screen w-full object-cover object-center grayscale " alt="">
-                <ul class="flex flex-col absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl uppercase font-[Plus_Jakarta_Sans] gap-y-10">
+                <ul
+                    class="flex flex-col absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl uppercase font-[Plus_Jakarta_Sans] gap-y-10">
                     <li>Tempat</li>
                     <li>Tanggal</li>
                     <li>Waktu</li>
@@ -86,23 +89,71 @@
             <div class="md:w-6/12 w-12/12 relative">
                 <div class="akad px-10 w-full text-center py-10 mt-10  font-[Plus_Jakarta_Sans]">
                     <h1 class="font-[Playwrite_AU_SA] text-6xl text-slate-900">Akad</h1>
-                    <p class="text-xl mt-8">Jum'at, 5 September 2025 </p>
-                    <p class="text-slate-900 text-xl mt-3"><span class="font-bold pe-2">Pukul</span>  09.00 WIB</p>
-                    <p class="text-3xl mt-2">Masjid Agung Sunan Ampel</p>
-                    <p class="text-slate-700 text-md text-md mt-2">Jl. Ampel Masjid No.53, Ampel, Kec. Semampir, Surabaya</p>
-                    <button class="bg-gray-900 text-white text-lg py-2 px-28 mt-10 hover:bg-gray-700 cursor-pointer transition-all">Maps</button>
+                    <p class="text-lg md:text-xl mt-6 md:mt-8">Jum'at, 5 September 2025 </p>
+                    <p class="text-slate-900 text-lg md:text-xl mt-3"><span class="font-bold pe-2">Pukul</span> 09.00
+                        WIB</p>
+                    <p class="text-2xl md:text-3xl mt-4">Masjid Agung Sunan Ampel</p>
+                    <p class="text-slate-700 text-sm md:text-md mt-2">Jl. Ampel Masjid No.53, Ampel, Kec. Semampir,
+                        Surabaya</p>
+                    <button
+                        class="bg-gray-900 text-white text-lg py-2 px-28 mt-10 hover:bg-gray-700 cursor-pointer transition-all">Maps</button>
                 </div>
                 <hr class="bg-gray-500 rounded-md w-8/12 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div class="resepsi px-10 w-full text-center py-10 mt-10  font-[Plus_Jakarta_Sans]">
-                    <h1 class="font-[Playwrite_AU_SA] text-6xl text-slate-900">Resepsi</h1>
-                    <p class="text-xl mt-8">Minggu, 7 September 2025 </p>
-                    <p class="text-slate-900 text-xl mt-3"><span class="font-bold pe-2">Pukul</span>  09.00 WIB</p>
-                    <p class="text-3xl mt-2">Gedung Convention Hall Arief Rahman Hakim</p>
-                    <p class="text-slate-700 text-md text-md mt-2">Jl. Arief Rahman Hakim No.131, Keputih, Kec. Sukolilo, Surabaya</p>
-                    <button class="bg-gray-900 text-white text-lg py-2 px-28 mt-10 hover:bg-gray-700 cursor-pointer transition-all">Maps</button>
+                    <h1 class="font-[Playwrite_AU_SA] text-5xl md:text-6xl text-slate-900">Resepsi</h1>
+                    <p class="text-lg md:text-xl mt-6 md:mt-8">Minggu, 7 September 2025 </p>
+                    <p class="text-slate-900 text-lg md:text-xl mt-3"><span class="font-bold pe-2">Pukul</span> 09.00
+                        WIB</p>
+                    <p class="text-2xl md:text-3xl mt-4">Gedung Convention Hall Arief Rahman Hakim</p>
+                    <p class="text-slate-700 text-sm md:text-md mt-2">Jl. Arief Rahman Hakim No.131, Keputih, Kec.
+                        Sukolilo, Surabaya</p>
+                    <button
+                        class="bg-gray-900 text-white text-lg py-2 px-28 mt-10 hover:bg-gray-700 cursor-pointer transition-all">Maps</button>
                 </div>
             </div>
         </section>
+        <section class="gallery w-full h-auto bg-primary shadow flex flex-wrap border-t-2 border-t-gray-300 py-10 px-10">
+            <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-3xl pb-10 font-bold">Gallery Foto Kami</h1>
+            <div class="grid md:grid-cols-3 grid-cols-1 gap-5">
+                <div>
+                    <div class="aspect-video">
+                        <img src="images/undangan/1.jpeg" alt="" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div>
+                    <div class="aspect-video">
+                        <img src="images/undangan/2.jpeg" alt="" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div>
+                    <div class="aspect-video">
+                        <img src="images/undangan/3.jpeg" alt="" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div>
+                    <div class="aspect-video">
+                        <img src="images/undangan/4.jpeg" alt="" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div>
+                    <div class="aspect-video">
+                        <img src="images/undangan/5.jpeg" alt="" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div>
+                    <div class="aspect-video">
+                        <img src="images/undangan/6.jpeg" alt="" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        <div class="sticky bottom-0 right-0-0">
+            <audio controls autoplay>
+                <source src="images/undangan/backsound.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
     </div>
 </body>
 
