@@ -4,13 +4,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wedding Invitation Sultan & Amalisa">
+    <meta name="keywords" content="undanga,nikah,sultan,amalisa">
+    <meta name="author" content="Sultan Amalisa">
+    <link rel="icon" type="image/x-icon" href="/images/undangan/icon_website.png">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+AU+SA:wght@100..400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+AU+SA:wght@100..400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Yeseva+One&display=swap');
     </style>
     <style>
         body {
-            /* font-family: 'Playwrite AU SA', sans-serif !important; */
+
+            overflow-x: hidden;
         }
 
         .bg-primary {
@@ -24,40 +30,58 @@
 
 </head>
 
+
+
 <body class="bg-secondary flex w-full justify-items-center items-center">
+
+    <div id="welcome-overlay"
+        class="fixed w-screen inset-0 bg-[url('images/undangan/bg_1.png')] bg-cover bg-left-bottom z-50 flex flex-col gap-y-7 items-center justify-center transition-opacity duration-700 opacity-100">
+        <div class="text-center" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+            <p class="sm:text-3xl text-2xl font-[Yeseva_One] text-black mb-5">The
+                Wedding Of</p>
+            <p class="sm:text-5xl text-4xl font-[Josefin_Sans] text-black mb-2">
+                Sultan & Amalisa</p>
+            <p class="md:text-2xl text-md w-full text-center italic font-[Plus_Jakarta_Sans] text-black mt-10">
+                06.09.2025
+            </p>
+        </div>
+        <div class="nama-tamu px-10 py-7 rounded-lg text-center backdrop-blur-[2px] bg-white/20 shadow-md">
+            <p class="text-lg text-slate-700">Kepada yth Saudara/i</p>
+            <p id="" class="text-slate-800 pt-1 font-bold md:text-xl text-lg nama">Sultan</p>
+        </div>
+        <button id="start-button"
+            class="bg-black text-white px-6 py-3 rounded-full text-lg shadow-lg hover:bg-gray-800 transition cursor-pointer">
+            Buka Undangan
+        </button>
+    </div>
+
     <div class="container w-full mx-auto relative">
         <section class="cover-halaman flex flex-row flex-wrap w-full shadow">
             <div class="md:w-6/12 w-12/12 bg-primary flex flex-wrap items-center justify-center">
-                <div class="pengantin w-full h-screen flex flex-wrap items-center py-10">
+                <div
+                    class="bg-[url('/images/undangan/bg_1.png')] bg-cover flex flex-wrap items-center justify-center bg-right-top h-screen w-full px-10">
                     <div class="w-full mt-20">
-                        <div class="relative pt-10 mt-10">
-                            <!-- Foto Background Tengah -->
-                            <img src="images/undangan/4.jpeg"
-                                class="md:h-[50vh] h-[40vh] w-[30vh] object-cover object-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 grayscale"
-                                style="z-index: 0;" alt="">
-
+                        <div class="relative mt-10">
                             <!-- Text Konten -->
-                            <div class="relative z-10 text-center">
-                                <p class="sm:text-6xl text-4xl font-[Plus_Jakarta_Sans] uppercase text-black mb-2">
+                            <div class="relative z-10 text-center" data-aos="fade-up" data-aos-duration="2000"
+                                data-aos-delay="100">
+                                <p class="sm:text-3xl text-2xl font-[Yeseva_One] text-black mb-5">The
+                                    Wedding Of</p>
+                                <p class="sm:text-5xl text-4xl font-[Josefin_Sans] text-black mb-2">
                                     Sultan & Amalisa</p>
-                                <!-- <p class="sm:text-4xl italic text-4xl font-[Playwrite_AU_SA] text-slate-100">&</p>
-                                <p class="md:text-6xl text-5xl font-[Playwrite_AU_SA] text-slate-100">Amalisa</p> -->
+                                <p
+                                    class="md:text-2xl text-md w-full text-center italic font-[Plus_Jakarta_Sans] text-black mt-10">
+                                    06.09.2025
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="tempat-tanggal w-full md:mt-18">
-                        <p class="md:text-2xl text-md w-full text-center italic font-[Plus_Jakarta_Sans] text-black">
-                            07.09.2025
-                        </p>
-                        <p class="md:text-md text-md w-full text-center font-[Plus_Jakarta_Sans] text-slate-700">
-                            Convention Hall, <br>Arief Rahman Hakim</p>
-                    </div>
-
                     <!-- Nama Tamu -->
-                    <div class="nama-tamu w-full text-center z-10 -mt-10">
+                    <div
+                        class="nama-tamu px-10 py-7 rounded-lg text-center z-10 backdrop-blur-[2px] bg-white/20 shadow-md">
                         <p class="text-lg text-slate-700">Kepada yth Saudara/i</p>
-                        <p id="nama" class="text-slate-800 pt-1 font-bold md:text-xl text-lg">Sultan</p>
+                        <p id="" class="text-slate-800 pt-1 font-bold md:text-xl text-lg nama">Sultan</p>
                     </div>
                 </div>
             </div>
@@ -66,53 +90,105 @@
             </div>
         </section>
         <section
-            class="w-full h-auto bg-primary shadow flex flex-wrap justify-center pt-20 pb-10 px-10  border-t-2 border-t-gray-300">
-            <h1 class="md:text-xl text-lg text-center md:w-7/12 w-12/12 font-[Noto_Sans] italic font-light">" Dan di
-                antara tanda-tanda
-                kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan
-                merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang. Sesungguhnya pada yang
-                demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir. "
-            </h1>
-            <span class="text-center w-full text-lg pt-2 font-bold">Qs. Ar Rum : 21</span>
+            class="relative w-full h-auto bg-[url('/images/undangan/bg_3.png')] bg-cover  bg-center border-t-2 border-t-gray-300 py-20 px-10">
+            <div class="bg-white/30 backdrop-blur-[3px] flex flex-wrap justify-center p-5 shadow rounded-md">
+                <h1 class="md:text-xl text-lg text-center md:w-7/12 w-12/12 font-[Noto_Sans] italic font-light"
+                    data-aos="fade-up" data-aos-duration="1000">" Dan di
+                    antara tanda-tanda
+                    kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung
+                    dan
+                    merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang. Sesungguhnya pada
+                    yang
+                    demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir. "
+                </h1>
+                <span class="text-center w-full text-lg pt-2 font-bold" data-aos="fade-up" data-aos-duration="1000">Qs.
+                    Ar Rum : 21</span>
+            </div>
+        </section>
 
-        </section>
-        <section class="w-full h-auto bg-primary shadow flex flex-wrap border-t-2 border-t-gray-300">
-            <div class="md:w-6/12 w-12/12 min-h-screen relative">
-                <img src="images/undangan/5.jpeg" class="h-screen w-full object-cover object-center grayscale " alt="">
-                <ul
-                    class="flex flex-col absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl uppercase font-[Plus_Jakarta_Sans] gap-y-10">
-                    <li>Tempat</li>
-                    <li>Tanggal</li>
-                    <li>Waktu</li>
-                </ul>
-            </div>
-            <div class="md:w-6/12 w-12/12 relative">
-                <div class="akad px-10 w-full text-center py-10 mt-10  font-[Plus_Jakarta_Sans]">
-                    <h1 class="font-[Playwrite_AU_SA] text-6xl text-slate-900">Akad</h1>
-                    <p class="text-lg md:text-xl mt-6 md:mt-8">Jum'at, 5 September 2025 </p>
-                    <p class="text-slate-900 text-lg md:text-xl mt-3"><span class="font-bold pe-2">Pukul</span> 09.00
-                        WIB</p>
-                    <p class="text-2xl md:text-3xl mt-4">Masjid Agung Sunan Ampel</p>
-                    <p class="text-slate-700 text-sm md:text-md mt-2">Jl. Ampel Masjid No.53, Ampel, Kec. Semampir,
-                        Surabaya</p>
-                    <button
-                        class="bg-gray-900 text-white text-lg py-2 px-28 mt-10 hover:bg-gray-700 cursor-pointer transition-all">Maps</button>
+
+        <section
+            class="w-full relative min-h-screen bg-[url('images/undangan/bg_4.png')] md:bg-cover bg-contain object-contain bg-repeat-y bg-right-bottom py-10 px-10 flex flex-wrap justify-center items-center border-t-gray-300/50 border-t-2">
+            <div class="w-auto bg-white/50 backdrop-blur-[5px] shadow-md rounded-lg px-10 py-20">
+                <p class="font-[Josefin_Sans] text-center md:text-lg text-md w-full" data-aos="zoom-in"
+                    data-aos-duration="1000">Tanpa mengurangi rasa hormat, kami
+                    bermaksud
+                    mengundang Bapak/Ibu/Saudara/I untuk menghadiri resepsi
+                    pernikahan kami :</p>
+                <div class="grid gap-y-2 mt-7" data-aos="fade-up" data-aos-duration="1000">
+                    <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">
+                        Sultan Aulia Alfarizki
+                    </h1>
+                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putra Keempat dari Alm. Bapak Moch.
+                        Sulthoni dan
+                        Ibu Erni Kusnawati</p>
                 </div>
-                <hr class="bg-gray-500 rounded-md w-8/12 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div class="resepsi px-10 w-full text-center py-10 mt-10  font-[Plus_Jakarta_Sans]">
-                    <h1 class="font-[Playwrite_AU_SA] text-5xl md:text-6xl text-slate-900">Resepsi</h1>
-                    <p class="text-lg md:text-xl mt-6 md:mt-8">Minggu, 7 September 2025 </p>
-                    <p class="text-slate-900 text-lg md:text-xl mt-3"><span class="font-bold pe-2">Pukul</span> 09.00
-                        WIB</p>
-                    <p class="text-2xl md:text-3xl mt-4">Gedung Convention Hall Arief Rahman Hakim</p>
-                    <p class="text-slate-700 text-sm md:text-md mt-2">Jl. Arief Rahman Hakim No.131, Keputih, Kec.
-                        Sukolilo, Surabaya</p>
-                    <button
-                        class="bg-gray-900 text-white text-lg py-2 px-28 mt-10 hover:bg-gray-700 cursor-pointer transition-all">Maps</button>
+                <h1 class="text-center font-[Josefin_Sans] text-4xl my-8">&</h1>
+                <div class="grid gap-y-2 mt-7" data-aos="fade-up" data-aos-duration="1000">
+                    <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">Amalisa Dona Safitri</h1>
+                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putri Pertama dari Bapak Sudjono dan
+                        Ibu Masruroh
+                    </p>
                 </div>
             </div>
         </section>
-        <section class="gallery w-full h-auto bg-primary shadow flex flex-wrap border-t-2 border-t-gray-300 py-10 px-10">
+
+        <section
+            class="w-full min-h-screen shadow flex flex-wrap bg-[url('images/undangan/bg_6.png')] md:bg-cover bg-contain bg-repeat-y object-contain md:bg-left-top bg-right-top items-center justify-center py-10 px-10 border-b-2 border-b-gray-300/50">
+            <div class="flex flex-wrap w-full ">
+                <div class="md:w-3/12 w-12/12">
+                    <img src="images/undangan/5.jpeg" alt=""
+                        class="w-full md:h-full h-[60vh] object-cover rounded-tl-[100px] shadow-lg">
+                </div>
+                <div class="md:w-6/12 w-12/12 bg-white/30 backdrop-blur-[3px] px-10 py-8 shadow">
+                    <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl m-0 p-0 underline"
+                        data-aos="zoom-in-down" data-aos-duration="1000">Save The Date</h1>
+                    <div class="flex flex-wrap h-full items-baseline md:pt-16 pt-10 pb-14 justify-center gap-y-6">
+                        <div class="akad md:w-6/12 w-12/12 justify-items-center grid gap-y-1" data-aos="zoom-in-up"
+                            data-aos-duration="1000">
+                            <h1 class="md:text-3xl text-3xl font-[Yeseva_One]">Akad</h1>
+                            <p class="md:text-xl text-2xl font-[Josefin_Sans] font-light text-center">Sabtu, 6 September
+                                2025</p>
+                            <p class="md:text-xl text-2xl font-[Josefin_Sans] font-light text-center"><span
+                                    class="">Pukul</span> 08.00 WIB</p>
+                        </div>
+                        <div class="resepsi md:w-6/12 w-12/12 justify-items-center grid gap-y-1" data-aos="zoom-in-up"
+                            data-aos-duration="1000">
+                            <h1 class="md:text-3xl text-3xl font-[Yeseva_One]">Resepsi</h1>
+                            <p class="md:text-xl text-2xl font-[Josefin_Sans] font-light text-center">Sabtu, 6 September
+                                2025</p>
+                            <p class="md:text-xl text-2xl font-[Josefin_Sans] font-light text-center"><span
+                                    class="">Pukul</span> 10.00 s/d 13.00 WIB</p>
+                        </div>
+                        <div class="w-10/12 h-[2px] bg-slate-600/30 rounded-lg relative">
+                            <span
+                                class="bg-[#fbf8f6] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 py-1 px-2 font-extrabold text-slate-600/60">*
+                                * * * *</span>
+                        </div>
+                        <div class="w-12/12 justify-items-center" data-aos="zoom-in-down" data-aos-duration="1000">
+                            <h1 class="text-3xl font-[Yeseva_One]">Lokasi</h1>
+                            <p class="text-2xl md:text-3xl font-[Josefin_Sans] text-center">Gedung Serbaguna SMKN 5
+                                Surabaya</p>
+                            <p class="text-slate-700  mt-2 font-[Josefin_Sans] text-center">Jl. Prof. DR. Moestopo
+                                No.167-169, Mojo,
+                                Kec. Gubeng, Surabaya</p>
+                            <a href="https://maps.app.goo.gl/CjUT8grFWicW9r427" target="_blank" class="">
+                                <button
+                                    class="bg-gray-900 text-white text-lg  md:mt-10 mt-5 py-2 px-28 hover:bg-gray-700 cursor-pointer transition-all">
+                                    Maps
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-3/12 w-12/12">
+                    <img src="images/undangan/4.jpeg" alt=""
+                        class="w-full md:h-full h-[60vh] object-cover rounded-br-[100px] shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery w-full h-auto bg-primary shadow flex flex-wrap py-10 px-10">
             <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-3xl pb-10 font-bold">Gallery Foto Kami</h1>
             <div class="grid md:grid-cols-3 grid-cols-1 gap-5">
                 <div>
@@ -146,35 +222,87 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
-        <div class="sticky bottom-0 right-0-0">
-            <audio controls autoplay>
-                <source src="images/undangan/backsound.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
+        <div class="fixed bottom-4 right-4">
+            <!-- Hidden audio element -->
+            <audio id="custom-audio" loop>
+                <source src="images/undangan/backsound.weba" type="audio/mp3">
+                Browser kamu tidak mendukung audio.
             </audio>
+
+            <!-- Custom control button -->
+            <button id="audio-toggle"
+                class="bg-gray-900 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-all">
+                🔊
+            </button>
         </div>
     </div>
+
 </body>
 
+<!-- AOS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
+    AOS.init();
+
+    // Dapatkan elemen penting
+    const audio = document.getElementById('custom-audio');
+    const toggleButton = document.getElementById('audio-toggle');
+    const startButton = document.getElementById('start-button');
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+
+    let isPlaying = false;
+
+    // Mainkan audio setelah klik tombol buka undangan
+    startButton.addEventListener('click', () => {
+        // Mulai audio
+        audio.play().then(() => {
+            isPlaying = true;
+            if (toggleButton) toggleButton.textContent = '🔊';
+        }).catch(err => console.error("Audio play error:", err));
+
+        // Tambahkan animasi fade-out
+        welcomeOverlay.classList.remove('opacity-100');
+        welcomeOverlay.classList.add('opacity-0');
+
+        // Setelah animasi selesai (700ms), sembunyikan overlay
+        setTimeout(() => {
+            welcomeOverlay.style.display = 'none';
+        }, 700);
+    });
+
+    // Tombol toggle audio
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                toggleButton.textContent = '🔇';
+            } else {
+                audio.play().catch(err => console.error("Audio play error:", err));
+                toggleButton.textContent = '🔊';
+            }
+            isPlaying = !isPlaying;
+        });
+    }
+
+    // Tambahkan nama dari query param
     function getQueryParams(qs) {
         qs = qs.split('+').join(' ');
-
-        var params = {},
-            tokens,
-            re = /[?&]?([^=]+)=([^&]*)/g;
-
+        var params = {}, tokens, re = /[?&]?([^=]+)=([^&]*)/g;
         while (tokens = re.exec(qs)) {
             params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
         }
-
         return params;
     }
 
-    var query = getQueryParams(document.location.search);
-    var test = document.getElementById('nama')
-    test.append(query.nama ?? '')
+    const query = getQueryParams(document.location.search);
+    const testElements = document.getElementsByClassName('nama');
+    if (testElements && query.nama) {
+        for (let i = 0; i < testElements.length; i++) {
+            testElements[i].append(query.nama);
+        }
+    }
 </script>
 
 </html>
