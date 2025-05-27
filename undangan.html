@@ -19,10 +19,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+AU+SA:wght@100..400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Yeseva+One&display=swap');
     </style>
     <style>
+        .force-hidden {
+            display: none !important;
+        }
+
         body {
 
             overflow-x: hidden;
@@ -40,6 +45,23 @@
             overflow: hidden;
             height: 100vh;
         }
+
+        .swiper-pagination-bullet {
+            opacity: 1;
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            width: auto;
+            height: auto;
+        }
+
+        .swiper-pagination-bullet-active img {
+            border: 2px solid #2563eb;
+            /* blue-600 */
+            transform: scale(1.05);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+        }
     </style>
 
 </head>
@@ -54,14 +76,14 @@
             <p class="sm:text-3xl text-2xl font-[Yeseva_One] text-black mb-5">The
                 Wedding Of</p>
             <p class="sm:text-5xl text-4xl font-[Josefin_Sans] text-black mb-2">
-                Sultan & Amalisa</p>
+                Amalisa & Sultan</p>
             <p class="md:text-2xl text-md w-full text-center italic font-[Plus_Jakarta_Sans] text-black mt-10">
                 06.09.2025
             </p>
         </div>
         <div class="nama-tamu px-10 py-7 rounded-lg text-center backdrop-blur-[2px] bg-white/20 shadow-md">
             <p class="text-lg text-slate-700">Kepada yth Saudara/i</p>
-            <p id="" class="text-slate-800 pt-1 font-bold md:text-xl text-lg nama">Sultan</p>
+            <p id="" class="text-slate-800 pt-1 font-bold md:text-xl text-lg nama"></p>
         </div>
         <button id="start-button"
             class="bg-black text-white px-6 py-3 rounded-full text-lg shadow-lg hover:bg-gray-800 transition cursor-pointer">
@@ -82,7 +104,7 @@
                                 <p class="sm:text-3xl text-2xl font-[Yeseva_One] text-black mb-5">The
                                     Wedding Of</p>
                                 <p class="sm:text-5xl text-4xl font-[Josefin_Sans] text-black mb-2">
-                                    Sultan & Amalisa</p>
+                                    Amalisa & Sultan</p>
                                 <p
                                     class="md:text-2xl text-md w-full text-center italic font-[Plus_Jakarta_Sans] text-black mt-10">
                                     06.09.2025
@@ -90,12 +112,32 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="w-full text-center py-5">
+                        <h2 class="md:text-3xl text-2xl mb-4 font-[Josefin_Sans]">Countdown to Our Event</h2>
+                        <div id="countdown" class="flex justify-center gap-4">
+                            <div class="shadow-md bg-white/20 backdrop-blur-[3px] p-4 rounded text-center">
+                                <div id="days" class="md:text-3xl text-xl font-bold text-gray-900">00</div>
+                                <div class="text-sm  text-gray-900">Days</div>
+                            </div>
+                            <div class="shadow-md bg-white/20 backdrop-blur-[3px] p-4 rounded text-center">
+                                <div id="hours" class="md:text-3xl text-xl font-bold  text-gray-900">00</div>
+                                <div class="text-sm  text-gray-900">Hours</div>
+                            </div>
+                            <div class="shadow-md bg-white/20 backdrop-blur-[3px] p-4 rounded text-center">
+                                <div id="minutes" class="md:text-3xl text-xl font-bold  text-gray-900">00</div>
+                                <div class="text-sm  text-gray-900">Minutes</div>
+                            </div>
+                            <div class="shadow-md bg-white/20 backdrop-blur-[3px] p-4 rounded text-center">
+                                <div id="seconds" class="md:text-3xl text-xl font-bold  text-gray-900">00</div>
+                                <div class="text-sm  text-gray-900">Seconds</div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Nama Tamu -->
                     <div
-                        class="nama-tamu px-10 py-7 rounded-lg text-center z-10 backdrop-blur-[2px] bg-white/20 shadow-md">
+                        class="nama-tamu px-10 py-7 mb-5 rounded-lg text-center z-10 backdrop-blur-[2px] bg-white/20 shadow-md">
                         <p class="text-lg text-slate-700">Kepada yth Saudara/i</p>
-                        <p id="" class="text-slate-800 pt-1 font-bold md:text-xl text-lg nama">Sultan</p>
+                        <p id="" class="text-slate-800 pt-1 font-bold md:text-xl text-lg nama"></p>
                     </div>
                 </div>
             </div>
@@ -130,6 +172,13 @@
                     mengundang Bapak/Ibu/Saudara/I untuk menghadiri resepsi
                     pernikahan kami :</p>
                 <div class="grid gap-y-2 mt-7" data-aos="fade-up" data-aos-duration="1000">
+                    <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">Amalisa Dona Safitri</h1>
+                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putri Pertama dari Bapak Sudjono dan
+                        Ibu Masruroh
+                    </p>
+                </div>
+                <h1 class="text-center font-[Josefin_Sans] text-4xl my-8">&</h1>
+                <div class="grid gap-y-2 mt-7" data-aos="fade-up" data-aos-duration="1000">
                     <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">
                         Sultan Aulia Alfarizki
                     </h1>
@@ -137,13 +186,7 @@
                         Sulthoni dan
                         Ibu Erni Kusnawati</p>
                 </div>
-                <h1 class="text-center font-[Josefin_Sans] text-4xl my-8">&</h1>
-                <div class="grid gap-y-2 mt-7" data-aos="fade-up" data-aos-duration="1000">
-                    <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">Amalisa Dona Safitri</h1>
-                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putri Pertama dari Bapak Sudjono dan
-                        Ibu Masruroh
-                    </p>
-                </div>
+
             </div>
         </section>
 
@@ -152,7 +195,7 @@
             <div class="flex flex-wrap w-full ">
                 <div class="md:w-3/12 w-12/12">
                     <img src="images/undangan/5.jpg" alt=""
-                        class="w-full md:h-full h-[60vh] object-cover rounded-tl-[100px] shadow-lg">
+                        class="w-full md:h-full h-[60vh] object-cover md:rounded-tl-[100px] md:rounded-tr-[0] rounded-tl-[35px] rounded-tr-[35px] shadow-lg">
                 </div>
                 <div class="md:w-6/12 w-12/12 bg-white/30 backdrop-blur-[3px] px-10 py-8 shadow">
                     <h1 class="text-center font-[Yeseva_One] md:text-4xl text-xl m-0 p-0 underline"
@@ -197,14 +240,58 @@
                 </div>
                 <div class="md:w-3/12 w-12/12">
                     <img src="images/undangan/6.jpg" alt=""
-                        class="w-full md:h-full h-[60vh] object-cover rounded-br-[100px] shadow-lg">
+                        class="w-full md:h-full h-[60vh] object-cover md:rounded-br-[100px] md:rounded-bl-[0px] rounded-bl-[35px] rounded-br-[35px] shadow-lg">
                 </div>
             </div>
         </section>
 
         <section class="gallery w-full h-auto bg-primary shadow flex flex-wrap py-10 px-10">
             <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-3xl pb-10 font-bold">Gallery Foto Kami</h1>
-            <div class="flex flex-wrap flex-row">
+            <div class="flex justify-end space-x-2 mb-6">
+                <button id="btn-slide"
+                    class="toggle-btn cursor-pointer bg-primary text-white border border-primary px-4 py-2 rounded-md shadow-md transition duration-300 hover:bg-primary/80">
+                    Slide View
+                </button>
+                <button id="btn-grid"
+                    class="toggle-btn cursor-pointer bg-white text-gray-800 border border-gray-300 px-4 py-2 rounded-md shadow-sm transition duration-300 hover:bg-gray-100">
+                    Grid View
+                </button>
+            </div>
+            <div class="swiper w-full transition-all duration-300 ease-in-out" id="slide">
+                <div class="swiper-wrapper h-[80vh]">
+                    <div class="swiper-slide">
+                        <img src="images/undangan/11.jpg" alt=""
+                            class="w-full h-[80vh] object-cover transition-all duration-300">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/undangan/2.jpg" alt=""
+                            class="w-full h-[80vh] object-cover transition-all duration-300">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/undangan/12.jpg" alt=""
+                            class="w-full h-[80vh] object-cover transition-all duration-300">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/undangan/10.jpg" alt=""
+                            class="w-full h-[80vh] object-cover transition-all duration-300">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/undangan/8.jpg" alt=""
+                            class="w-full h-[80vh] object-cover transition-all duration-300">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/undangan/1.jpg" alt=""
+                            class="w-full h-[80vh] object-cover transition-all duration-300">
+                    </div>
+                </div>
+                <!-- Custom pagination with thumbnails -->
+                <div class="swiper-pagination flex justify-center my-5 space-x-2"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <div class="flex flex-wrap flex-row force-hidden transition-all duration-300 ease-in-out" id="grid">
                 <div class="md:w-4/12 w-12/12 px-1">
                     <div class="mt-2 shadow-sm">
                         <img src="images/undangan/11.jpg" alt="" class="w-full h-full object-contain">
@@ -260,7 +347,70 @@
 
 <!-- AOS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
+
+    const images = [
+        'images/undangan/11.jpg',
+        'images/undangan/2.jpg',
+        'images/undangan/12.jpg',
+        'images/undangan/10.jpg',
+        'images/undangan/8.jpg',
+        'images/undangan/1.jpg',
+    ];
+
+    var swiper = new Swiper('.swiper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+                return `
+                <div class="${className}">
+                <img src="${images[index]}" 
+                     class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md" 
+                     alt="thumb ${index}" />
+            </div>`;
+            },
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // autoHeight: true,
+        spaceBetween: 20,
+        // centeredSlides: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+    })
+
+    const btnGrid = document.getElementById('btn-grid');
+    const btnSlide = document.getElementById('btn-slide');
+    const slideView = document.getElementById('slide');
+    const gridView = document.getElementById('grid');
+
+    const setActiveButton = (active, inactive) => {
+        active.classList.remove('bg-white', 'text-gray-800', 'border-gray-300');
+        active.classList.add('bg-primary', 'text-white', 'border-primary');
+
+        inactive.classList.remove('bg-primary', 'text-white', 'border-primary');
+        inactive.classList.add('bg-white', 'text-gray-800', 'border-gray-300');
+    };
+
+    btnGrid.addEventListener('click', () => {
+        slideView.classList.add('force-hidden');
+        gridView.classList.remove('force-hidden');
+        setActiveButton(btnGrid, btnSlide);
+    });
+
+    btnSlide.addEventListener('click', () => {
+        gridView.classList.add('force-hidden');
+        slideView.classList.remove('force-hidden');
+        setActiveButton(btnSlide, btnGrid);
+    });
+
     AOS.init();
 
     // Dapatkan elemen penting
@@ -326,6 +476,38 @@
             testElements[i].append(query.nama);
         }
     }
+
+    // Set the target date
+    const targetDate = new Date("2025-09-06T08:00:00").getTime();
+
+    const countdown = () => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        // Time calculations
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Update DOM 
+        document.getElementById("days").innerText = days.toString().padStart(2, '0');
+        document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+        document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+        document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+
+        // Optional: Stop countdown at 0
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("countdown").innerHTML = "<div class='text-xl font-semibold'>Event Started!</div>";
+        }
+    };
+
+    const timer = setInterval(countdown, 1000);
 </script>
 
 </html>
