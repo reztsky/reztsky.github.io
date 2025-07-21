@@ -71,7 +71,7 @@
 <body class=" no-scroll bg-secondary flex w-full justify-items-center items-center">
 
     <div id="welcome-overlay"
-        class="fixed w-screen inset-0 bg-[url('images/undangan/bg_1.png')] bg-cover bg-left-bottom z-50 flex flex-col gap-y-7 items-center justify-center transition-opacity duration-700 opacity-100">
+        class="fixed w-screen inset-0 bg-[url('images/undangan/test_bg-2.jpg')] bg-cover  bg-bottom z-50 flex flex-col gap-y-7 items-center justify-center transition-opacity duration-700 opacity-100">
         <div class="text-center" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
             <p class="sm:text-3xl text-2xl font-[Yeseva_One] text-black mb-5">The
                 Wedding Of</p>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="md:w-6/12 w-12/12">
+            <div class="md:w-6/12 w-12/12 w-full relative">
                 <img src="images/undangan/4.jpg" class="h-screen w-full object-cover object-center " alt="">
             </div>
         </section>
@@ -173,7 +173,8 @@
                     pernikahan kami :</p>
                 <div class="grid gap-y-2 mt-7" data-aos="fade-up" data-aos-duration="1000">
                     <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">Amalisa Dona Safitri, S.Kep.,Ns</h1>
-                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putri Pertama dari Pelda-Mar (Purn) Sudono dan
+                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putri Pertama dari Pelda-Mar (Purn)
+                        Sudono dan
                         Ibu Masruroh, M.Pd
                     </p>
                 </div>
@@ -182,7 +183,8 @@
                     <h1 class="text-center font-[Yeseva_One] md:text-4xl text-3xl">
                         Sultan Aulia Alfarizki, Amd.Kom
                     </h1>
-                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putra Keempat dari (Alm) Bapak H. Moch.
+                    <p class="text-center font-[Josefin_Sans] md:text-lg text-base">Putra Keempat dari (Alm) Bapak H.
+                        Moch.
                         Sulthoni dan
                         Ibu Dra. Erni Kusnawati</p>
                 </div>
@@ -245,11 +247,12 @@
             </div>
         </section>
 
-        <section class="gallery w-full h-auto bg-primary shadow flex flex-wrap py-10 px-10">
+        <section
+            class="gallery w-full h-auto bg-primary shadow flex flex-wrap py-10 px-10 bg-[url('images/undangan/test_bg-1.jpg')] bg-cover bg-bottom">
             <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-3xl pb-10 font-bold">Gallery Foto Kami</h1>
             <div class="flex justify-end space-x-2 mb-6">
                 <button id="btn-slide"
-                    class="toggle-btn cursor-pointer bg-primary text-white border border-primary px-4 py-2 rounded-md shadow-md transition duration-300 hover:bg-primary/80">
+                    class="toggle-btn cursor-pointer bg-primary text-dark border border-primary px-4 py-2 rounded-md shadow-md transition duration-300 hover:bg-primary/80">
                     Slide View
                 </button>
                 <button id="btn-grid"
@@ -508,6 +511,7 @@
     };
 
     const timer = setInterval(countdown, 1000);
+
 </script>
 
 </html>
