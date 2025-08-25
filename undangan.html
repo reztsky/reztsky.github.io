@@ -433,7 +433,7 @@
     
 </script>
 <script>
-    const GITHUB_TOKEN="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"
+    const KEY="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"
     const OWNER = "reztsky"; // e.g. sultanAulia
     const REPO = "reztsky.github.io"; // e.g. wedding-form
     const FILE_PATH = "doa_ucapan.txt"; // file in your repo
@@ -445,7 +445,7 @@
         let fileData = await fetch(
             `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`, {
                 headers: {
-                    Authorization: `token ${GITHUB_TOKEN}`
+                    Authorization: `token ${KEY}`
                 }
             });
 
