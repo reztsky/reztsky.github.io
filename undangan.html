@@ -331,13 +331,68 @@
             class="ucapan-doa w-full h-auto bg-primary shadow bg-[url('images/undangan/test_bg-1.jpg')] bg-cover bg-center">
             <div class="flex flex-wrap justify-center py-10 px-5">
                 <div class="md:w-12/12 w-12/12 bg-white/30 backdrop-blur-[3px] px-5 py-8 shadow">
+                    <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-xl font-bold">Wedding Gift</h1>
+                    <p class="md:text-lg text-center w-full font-[Noto_Sans italic font-light]">
+                        Anda dapat mengirim kado pernikahan kami dalam bentuk digital
+                    </p>
+
+                    <center class="mt-3">
+                        <button id="openModal"
+                            class="px-4 py-2 bg-slate-600 text-white rounded hover:bg-slate-700 cursor-pointer">
+                            Kirim Wedding Gift
+                        </button>
+                    </center>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div id="modal"
+                class="fixed inset-0 bg-[#e2e4e7]/70 bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-[999]">
+                <div id="modalContent"
+                    class="bg-white rounded-lg w-96 p-6 relative transform scale-90 translate-y-6 transition-all duration-300">
+                    <!-- Close Button -->
+                    <button id="closeModal"
+                        class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
+
+                    <h2 class="text-xl font-bold mb-4">Kirim Hadiah</h2>
+                    <p class="mb-4"><b>Direct Transfer</b>, kamu bisa transfer ke rekening yang tertera</p>
+                    <div
+                        class="max-w-sm mx-auto bg-white shadow-lg rounded-xl border border-gray-200 p-5 space-y-3 relative">
+                        <!-- Bank Name -->
+                        <p class="text-lg font-semibold text-gray-800 p-0 m-0">Bank Central Asia (BCA)</p>
+
+                        <!-- Account Number with Copy Button -->
+                        <div class="flex items-center justify-between bg-gray-100 rounded-md p-0 m-0">
+                            <span id="accountNumber" class="font-mono text-gray-700">1012051004</span>
+                            <button id="copyBtn"
+                                class="ml-2 text-blue-600 hover:text-blue-800 font-semibold cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path d="M8 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V6l-6-4H8z" />
+                                </svg>
+
+                                <!-- Tooltip -->
+                                <span id="tooltip"
+                                    class="absolute -top-7 right-0 bg-black text-white text-xs rounded px-2 py-1 opacity-0 pointer-events-none transition-opacity">
+                                    Copied!
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- Account Holder Name -->
+                        <p class="text-gray-600 p-0 m-0">An. Amalisa Dona Safitri</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <section
+            class="ucapan-doa w-full h-auto bg-primary shadow bg-[url('images/undangan/test_bg-1.jpg')] bg-cover bg-center">
+            <div class="flex flex-wrap justify-center py-10 px-5">
+                <div class="md:w-12/12 w-12/12 bg-white/30 backdrop-blur-[3px] px-5 py-8 shadow">
                     <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-xl font-bold">Do'a & Ucapan</h1>
                     <p class="md:text-lg text-center w-full font-[Noto_Sans italic font-light]">
                         Berikan Ucapan & Do'a Terbaik untuk Kami
                     </p>
                     <form action="" method="POST" class="space-y-4" id="doaForm">
-
-                        <!-- Input Nama -->
                         <div>
                             <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
                                 Nama
@@ -345,8 +400,6 @@
                             <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda"
                                 class="w-full py-2 px-2 rounded-sm border-gray-300 bg-white/30 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                         </div>
-
-                        <!-- Textarea Ucapan dan Doa -->
                         <div>
                             <label for="ucapan" class="block text-sm font-medium text-gray-700 mb-1">
                                 Ucapan dan Doa
@@ -354,8 +407,6 @@
                             <textarea id="ucapan" name="ucapan_dan_doa" rows="4" placeholder="Tuliskan ucapan dan doa..."
                                 class="w-full py-2 px-2 rounded-sm border-gray-300 bg-white/30 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
                         </div>
-
-                        <!-- Submit Button -->
                         <div class="pt-2">
                             <button type="submit" id="saveBtn"
                                 class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -368,13 +419,11 @@
                     <div class="max-w-2xl mx-auto mt-6 p-6 bg-white rounded-2xl shadow">
                         <h2 class="text-lg font-bold mb-3">Ucapan & Doa</h2>
                         <ul id="dataList" class="space-y-3"></ul>
-
-                        <!-- Pagination -->
                         <div class="flex justify-center mt-4 space-x-2" id="pagination"></div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <section
             class="gallery w-full h-auto bg-primary shadow bg-[url('images/undangan/test_bg-1.jpg')] bg-cover bg-right-bottom">
             <div class=" flex flex-wrap justify-center py-10 px-5 ">
@@ -430,66 +479,52 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-    
-</script>
-<script>
-    const KEY="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"
-    const OWNER = "reztsky"; // e.g. sultanAulia
-    const REPO = "reztsky.github.io"; // e.g. wedding-form
-    const FILE_PATH = "doa_ucapan.txt"; // file in your repo
-    const BRANCH = "main"; // or master
-    let data = [];
+    const openModalBtn = document.getElementById('openModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modalContent');
 
-    async function saveToGithub(nama, ucapan) {
-        // 1. Get current file (to append content)
-        let fileData = await fetch(
-            `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`, {
-                headers: {
-                    Authorization: `token ${KEY}`
-                }
-            });
-
-        let fileJson = await fileData.json();
-        let sha = fileJson.sha; // needed to update existing file
-        let oldContent = atob(fileJson.content); // decode base64
-
-        // 2. Append new entry
-        let newEntry = `Nama: ${nama}\nUcapan: ${ucapan}\n-------------------\n`;
-        let updatedContent = oldContent + "\n" + newEntry;
-
-        // 3. Update file in repo
-        let res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`, {
-            method: "PUT",
-            headers: {
-                Authorization: `token ${GITHUB_TOKEN}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: "Add new ucapan",
-                content: btoa(updatedContent), // base64 encode
-                sha: sha,
-                branch: BRANCH
-            })
-        });
-
-        if (res.ok) {
-            alert("Saved to GitHub file!");
-        } else {
-            console.error(await res.json());
-            alert("Failed to save");
-        }
+    function openModal() {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modalContent.classList.remove('scale-90', 'translate-y-6');
+        modalContent.classList.add('scale-100', 'translate-y-0');
     }
 
-    // Example hookup to form
-    const form = document.getElementById("doaForm");
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        let nama = document.getElementById("nama").value.trim();
-        let ucapan = document.getElementById("ucapan").value.trim();
-        if (nama && ucapan) {
-            saveToGithub(nama, ucapan);
-            form.reset();
-        }
+    function closeModal() {
+        modalContent.classList.remove('scale-100', 'translate-y-0');
+        modalContent.classList.add('scale-90', 'translate-y-6');
+        modal.classList.add('opacity-0');
+        setTimeout(() => {
+            modal.classList.add('pointer-events-none');
+        }, 300); // match transition duration
+    }
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside the content
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    const copyBtn = document.getElementById('copyBtn');
+    const accountNumber = document.getElementById('accountNumber');
+
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(accountNumber.textContent).then(() => {
+            // Show tooltip
+            tooltip.classList.remove('opacity-0');
+            tooltip.classList.add('opacity-100');
+
+            // Optional: change icon color
+            copyBtn.classList.add('text-green-500');
+
+            // Hide tooltip after 1.5s
+            setTimeout(() => {
+                tooltip.classList.add('opacity-0');
+                copyBtn.classList.remove('text-green-500');
+            }, 1000);
+        });
     });
 </script>
 <script>
