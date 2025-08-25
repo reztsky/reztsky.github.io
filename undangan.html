@@ -142,7 +142,8 @@
                 </div>
             </div>
             <div class="md:w-6/12 w-12/12 w-full relative">
-                <img src="images/undangan/foto_fix/4a.png" class="h-screen w-full object-cover object-center " alt="">
+                <img src="images/undangan/foto_fix/4a.png" class="h-screen w-full object-cover object-center "
+                    alt="">
             </div>
         </section>
         <section
@@ -219,7 +220,8 @@
                             <p class="md:text-xl text-lg font-[Josefin_Sans] font-light text-center"><span
                                     class="">Pukul</span> 10.00 s/d 12.00 WIB</p>
                         </div>
-                        <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-gray-700 to-transparent my-6 rounded-lg relative">
+                        <div
+                            class="h-[2px] w-full bg-gradient-to-r from-transparent via-gray-700 to-transparent my-6 rounded-lg relative">
                             <span
                                 class="bg-[#fbf8f6] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 py-1 px-2 font-extrabold text-slate-600/60">*
                                 * * * *</span>
@@ -324,16 +326,63 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section
+            class="ucapan-doa w-full h-auto bg-primary shadow bg-[url('images/undangan/test_bg-1.jpg')] bg-cover bg-center">
+            <div class="flex flex-wrap justify-center py-10 px-5">
+                <div class="md:w-12/12 w-12/12 bg-white/30 backdrop-blur-[3px] px-5 py-8 shadow">
+                    <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-xl font-bold">Do'a & Ucapan</h1>
+                    <p class="md:text-lg text-center w-full font-[Noto_Sans italic font-light]">
+                        Berikan Ucapan & Do'a Terbaik untuk Kami
+                    </p>
+                    <form action="" method="POST" class="space-y-4" id="doaForm">
 
+                        <!-- Input Nama -->
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
+                                Nama
+                            </label>
+                            <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda"
+                                class="w-full py-2 px-2 rounded-sm border-gray-300 bg-white/30 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                        </div>
+
+                        <!-- Textarea Ucapan dan Doa -->
+                        <div>
+                            <label for="ucapan" class="block text-sm font-medium text-gray-700 mb-1">
+                                Ucapan dan Doa
+                            </label>
+                            <textarea id="ucapan" name="ucapan_dan_doa" rows="4" placeholder="Tuliskan ucapan dan doa..."
+                                class="w-full py-2 px-2 rounded-sm border-gray-300 bg-white/30 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button type="submit" id="saveBtn"
+                                class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                Kirim
+                            </button>
+                        </div>
+                    </form>
+                    <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-gray-700 to-transparent my-6">
+                    </div>
+                    <div class="max-w-2xl mx-auto mt-6 p-6 bg-white rounded-2xl shadow">
+                        <h2 class="text-lg font-bold mb-3">Ucapan & Doa</h2>
+                        <ul id="dataList" class="space-y-3"></ul>
+
+                        <!-- Pagination -->
+                        <div class="flex justify-center mt-4 space-x-2" id="pagination"></div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section
             class="gallery w-full h-auto bg-primary shadow bg-[url('images/undangan/test_bg-1.jpg')] bg-cover bg-right-bottom">
             <div class=" flex flex-wrap justify-center py-10 px-5 ">
                 <div class="md:w-12/12 w-12/12 bg-white/30 backdrop-blur-[3px] px-5 py-8 shadow">
-                    <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-xl pb-5 font-bold" data-aos="zoom-in-up"
-                            data-aos-duration="1000">Terima Kasih</h1>
+                    <h1 class="w-full font-[Plus_Jakarta_Sans] text-center text-xl pb-5 font-bold"
+                        data-aos="zoom-in-up" data-aos-duration="1000">Terima Kasih</h1>
                     <p class="md:text-lg text-center w-full font-[Noto_Sans] italic font-light" data-aos="zoom-in-up"
-                            data-aos-duration="1000">
+                        data-aos-duration="1000">
                         Merupakan suatu kehormatan dan kebahagian bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir
                         untuk
                         memberikan do'a restu kepada kedua mempelai
@@ -342,19 +391,16 @@
                     <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-gray-700 to-transparent my-6">
                     </div>
 
-                    <h1 class="w-full font-[Plus_Jakarta_Sans] text-center md:text-xl text-lg pb-5 font-bold" data-aos="zoom-in-up"
-                            data-aos-duration="1000">Kami Yang
+                    <h1 class="w-full font-[Plus_Jakarta_Sans] text-center md:text-xl text-lg pb-5 font-bold">Kami Yang
                         Berbahagia</h1>
                     <div class="flex flex-row flex-wrap gap-y-3">
-                        <div class="md:w-6/12 w-12/12" data-aos="zoom-in-up"
-                            data-aos-duration="1000">
+                        <div class="md:w-6/12 w-12/12">
                             <p class="md:text-lg text-sm text-center w-full font-[Noto_Sans] italic font-light">
                                 Keluarga Pelda-Mar (Purn) Sudono dan Ibu Masruroh, M.Pd
                             </p>
                         </div>
                         <div class="md:w-6/12 w-12/12">
-                            <p class="md:text-lg text-sm text-center w-full font-[Noto_Sans] italic font-light" data-aos="zoom-in-up"
-                            data-aos-duration="1000">
+                            <p class="md:text-lg text-sm text-center w-full font-[Noto_Sans] italic font-light">
                                 Keluarga (Alm) Bapak H. Moch. Sulthoni dan Ibu Dra. Erni Kusnawati
                             </p>
                         </div>
@@ -384,7 +430,69 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
+    
+</script>
+<script>
+    const GITHUB_TOKEN="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"
+    const OWNER = "reztsky"; // e.g. sultanAulia
+    const REPO = "reztsky.github.io"; // e.g. wedding-form
+    const FILE_PATH = "doa_ucapan.txt"; // file in your repo
+    const BRANCH = "main"; // or master
+    let data = [];
 
+    async function saveToGithub(nama, ucapan) {
+        // 1. Get current file (to append content)
+        let fileData = await fetch(
+            `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`, {
+                headers: {
+                    Authorization: `token ${GITHUB_TOKEN}`
+                }
+            });
+
+        let fileJson = await fileData.json();
+        let sha = fileJson.sha; // needed to update existing file
+        let oldContent = atob(fileJson.content); // decode base64
+
+        // 2. Append new entry
+        let newEntry = `Nama: ${nama}\nUcapan: ${ucapan}\n-------------------\n`;
+        let updatedContent = oldContent + "\n" + newEntry;
+
+        // 3. Update file in repo
+        let res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `token ${GITHUB_TOKEN}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Add new ucapan",
+                content: btoa(updatedContent), // base64 encode
+                sha: sha,
+                branch: BRANCH
+            })
+        });
+
+        if (res.ok) {
+            alert("Saved to GitHub file!");
+        } else {
+            console.error(await res.json());
+            alert("Failed to save");
+        }
+    }
+
+    // Example hookup to form
+    const form = document.getElementById("doaForm");
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        let nama = document.getElementById("nama").value.trim();
+        let ucapan = document.getElementById("ucapan").value.trim();
+        if (nama && ucapan) {
+            saveToGithub(nama, ucapan);
+            form.reset();
+        }
+    });
+</script>
+<script>
     const images = [
         'images/undangan/foto_fix/1.JPG',
         'images/undangan/foto_fix/2.JPG',
@@ -398,7 +506,7 @@
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
-            renderBullet: function (index, className) {
+            renderBullet: function(index, className) {
                 return `
                 <div class="${className}">
                 <img src="${images[index]}" 
@@ -497,7 +605,8 @@
     // Tambahkan nama dari query param
     function getQueryParams(qs) {
         qs = qs.split('+').join(' ');
-        var params = {}, tokens, re = /[?&]?([^=]+)=([^&]*)/g;
+        var params = {},
+            tokens, re = /[?&]?([^=]+)=([^&]*)/g;
         while (tokens = re.exec(qs)) {
             params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
         }
@@ -538,12 +647,12 @@
         // Optional: Stop countdown at 0
         if (distance < 0) {
             clearInterval(timer);
-            document.getElementById("countdown").innerHTML = "<div class='text-xl font-semibold'>Event Started!</div>";
+            document.getElementById("countdown").innerHTML =
+                "<div class='text-xl font-semibold'>Event Started!</div>";
         }
     };
 
     const timer = setInterval(countdown, 1000);
-
 </script>
 
 </html>
