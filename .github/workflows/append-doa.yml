@@ -1,0 +1,28 @@
+name: Append Doa to File
+
+on:
+  repository_dispatch:
+    types: [add_doa]
+
+jobs:
+  append-doa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Append doa to file
+        run: |
+          echo "Nama: ${{ github.event.client_payload.nama }}" >> doa_ucapan.txt
+          echo "Ucapan: ${{ github.event.client_payload.ucapan }}" >> doa_ucapan.txt
+          echo "-------------------" >> doa_ucapan.txt
+
+      - name: Commit & Push
+        run: |
+          git config --global user.name "reztsky"
+          git config --global user.email "sultaninot@gmail.com"
+          git add data/doa_ucapan.txt
+          git commit -m "Append doa from form"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
