@@ -1,7 +1,8 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const INITIAL_GAMES = 10;
+const LS_KEY = "scorekeeper_v1";
 
 const SCORE_PRESETS = [5, 10, 25, 50, 100];
 
@@ -9,13 +10,38 @@ const getTotalScore = (scores: number[]) => scores.reduce((t, s) => t + s, 0);
 
 type Player = { name: string; scores: number[] };
 
+const DEFAULT_PLAYERS: Player[] = [
+  { name: "Player 1", scores: Array(INITIAL_GAMES).fill(0) },
+  { name: "Player 2", scores: Array(INITIAL_GAMES).fill(0) },
+  { name: "Player 3", scores: Array(INITIAL_GAMES).fill(0) },
+  { name: "Player 4", scores: Array(INITIAL_GAMES).fill(0) },
+];
+
+function loadPlayers(): Player[] {
+  if (typeof window === "undefined") return DEFAULT_PLAYERS;
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return DEFAULT_PLAYERS;
+    const parsed = JSON.parse(raw) as Player[];
+    if (
+      Array.isArray(parsed) &&
+      parsed.length >= 2 &&
+      parsed.every(
+        (p) =>
+          typeof p.name === "string" && Array.isArray(p.scores),
+      )
+    ) {
+      return parsed;
+    }
+  } catch {
+    // corrupted data — fall back to defaults
+  }
+  return DEFAULT_PLAYERS;
+}
+
 export default function ScoreKeeper() {
-  const [players, setPlayers] = useState<Player[]>([
-    { name: "Player 1", scores: Array(INITIAL_GAMES).fill(0) },
-    { name: "Player 2", scores: Array(INITIAL_GAMES).fill(0) },
-    { name: "Player 3", scores: Array(INITIAL_GAMES).fill(0) },
-    { name: "Player 4", scores: Array(INITIAL_GAMES).fill(0) },
-  ]);
+  const [players, setPlayers] = useState<Player[]>(loadPlayers);
+  const [restored, setRestored] = useState(false);
   const [selected, setSelected] = useState<{ p: number; g: number } | null>(
     null,
   );
@@ -26,6 +52,24 @@ export default function ScoreKeeper() {
     sign: "+" | "-";
   } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Persist players to localStorage on every change
+  useEffect(() => {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(players));
+    } catch {
+      // storage full or unavailable — fail silently
+    }
+  }, [players]);
+
+  // Show "restored" toast once on mount if data came from storage
+  useEffect(() => {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      setRestored(true);
+      setTimeout(() => setRestored(false), 2800);
+    }
+  }, []);
 
   const numGames = players[0]?.scores.length ?? 0;
 
@@ -92,10 +136,9 @@ export default function ScoreKeeper() {
   };
 
   const resetAll = () => {
-    setPlayers((prev) =>
-      prev.map((p) => ({ ...p, scores: p.scores.map(() => 0) })),
-    );
+    setPlayers(DEFAULT_PLAYERS);
     setSelected(null);
+    try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
   };
 
   return (
@@ -491,9 +534,39 @@ export default function ScoreKeeper() {
           .preset-btn { font-size: 10px; padding: 7px 1px; }
           .sk-btn { padding: 6px 9px; font-size: 11px; }
         }
+
+        /* ── Toast ── */
+        .sk-toast {
+          position: fixed;
+          top: 16px;
+          left: 50%;
+          transform: translateX(-50%) translateY(-80px);
+          background: rgba(16,185,129,0.15);
+          border: 1px solid rgba(16,185,129,0.35);
+          color: #34d399;
+          backdrop-filter: blur(12px);
+          padding: 8px 18px;
+          border-radius: 99px;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.4px;
+          z-index: 200;
+          pointer-events: none;
+          transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.35s ease;
+          opacity: 0;
+          white-space: nowrap;
+        }
+        .sk-toast.show {
+          transform: translateX(-50%) translateY(0);
+          opacity: 1;
+        }
       `}</style>
 
       <div className="sk-root">
+        {/* Restore toast */}
+        <div className={`sk-toast ${restored ? "show" : ""}`}>
+          ✦ Session restored
+        </div>
         <div className="sk-header">
           <h1 className="sk-title">ScoreKeeper</h1>
           <p className="sk-subtitle">Tap a cell · Apply score below</p>
