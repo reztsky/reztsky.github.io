@@ -40,7 +40,9 @@ function loadPlayers(): Player[] {
 }
 
 export default function ScoreKeeper() {
-  const [players, setPlayers] = useState<Player[]>(loadPlayers);
+  // Always start with defaults so server & client render identically (no hydration mismatch).
+  // localStorage is loaded client-side only, after hydration, in the useEffect below.
+  const [players, setPlayers] = useState<Player[]>(DEFAULT_PLAYERS);
   const [restored, setRestored] = useState(false);
   const [selected, setSelected] = useState<{ p: number; g: number } | null>(
     null,
@@ -53,7 +55,30 @@ export default function ScoreKeeper() {
   } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Persist players to localStorage on every change
+  // After hydration: load saved state from localStorage, then keep in sync on every change.
+  useEffect(() => {
+    // 1. Load saved data once on mount
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as Player[];
+        if (
+          Array.isArray(parsed) &&
+          parsed.length >= 2 &&
+          parsed.every((p) => typeof p.name === "string" && Array.isArray(p.scores))
+        ) {
+          setPlayers(parsed);
+          setRestored(true);
+          setTimeout(() => setRestored(false), 2800);
+        }
+      }
+    } catch {
+      // corrupted — keep defaults
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once after first render
+
+  // 2. Persist on every subsequent change
   useEffect(() => {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify(players));
@@ -61,15 +86,6 @@ export default function ScoreKeeper() {
       // storage full or unavailable — fail silently
     }
   }, [players]);
-
-  // Show "restored" toast once on mount if data came from storage
-  useEffect(() => {
-    const raw = localStorage.getItem(LS_KEY);
-    if (raw) {
-      setRestored(true);
-      setTimeout(() => setRestored(false), 2800);
-    }
-  }, []);
 
   const numGames = players[0]?.scores.length ?? 0;
 
