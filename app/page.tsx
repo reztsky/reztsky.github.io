@@ -141,6 +141,119 @@ export default function Home() {
           fill: currentColor;
         }
 
+        .pf-nav-pdf-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: linear-gradient(135deg, #6366f1, #4f46e5);
+          color: #ffffff;
+          border: none;
+          padding: 6px 14px;
+          border-radius: 99px;
+          font-family: 'Inter', system-ui, sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+          box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+          outline: none;
+        }
+        .pf-nav-pdf-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+          background: linear-gradient(135deg, #4f46e5, #4338ca);
+        }
+        .pf-nav-pdf-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 6px rgba(99, 102, 241, 0.15);
+        }
+        .pf-nav-pdf-btn svg {
+          width: 14px;
+          height: 14px;
+          fill: currentColor;
+          flex-shrink: 0;
+        }
+
+        /* ── PRINT MEDIA QUERY ── */
+        @media print {
+          .pf-nav,
+          .pf-footer,
+          .project-chevron {
+            display: none !important;
+          }
+
+          .pf-body {
+            background: #ffffff !important;
+            color: #000000 !important;
+          }
+
+          .pf-main {
+            max-width: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+
+          .project-body {
+            display: block !important;
+            padding-left: 20px !important;
+            margin-top: 6px !important;
+          }
+
+          .project-header {
+            cursor: default !important;
+            pointer-events: none !important;
+            padding: 6px 0 !important;
+          }
+
+          .project-item {
+            border: none !important;
+            border-bottom: 1px dashed #e5e7eb !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            margin-bottom: 12px !important;
+            padding-bottom: 12px !important;
+            page-break-inside: avoid;
+            break-inside: avoid;
+          }
+          .project-item:hover {
+            box-shadow: none !important;
+          }
+
+          .exp-item,
+          .edu-item,
+          .skill-row {
+            page-break-inside: avoid;
+            break-inside: avoid;
+          }
+
+          .pf-section {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-bottom: 24px !important;
+            padding-bottom: 24px !important;
+          }
+
+          .pf-section-heading {
+            border-bottom: 1px solid #e5e7eb !important;
+            padding-bottom: 4px !important;
+            margin-bottom: 14px !important;
+          }
+
+          .pf-hero {
+            border-bottom: 1px solid #e5e7eb !important;
+            margin-bottom: 24px !important;
+            padding-bottom: 20px !important;
+          }
+
+          .pf-hero-eyebrow {
+            border: 1px solid #16a34a !important;
+            background: transparent !important;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+          }
+        }
+
         /* ── MAIN LAYOUT ── */
         .pf-main {
           max-width: 760px;
@@ -479,6 +592,18 @@ export default function Home() {
         <nav className="pf-nav">
           <span className="pf-nav-brand">SULLTAN</span>
           <ul className="pf-nav-links">
+            <li>
+              <button
+                onClick={() => window.print()}
+                className="pf-nav-pdf-btn"
+                title="Unduh PDF"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" />
+                </svg>
+                <span>Unduh PDF</span>
+              </button>
+            </li>
             <li>
               <a href="mailto:sultaninot@gmail.com" className="icon-link" title="Email">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
