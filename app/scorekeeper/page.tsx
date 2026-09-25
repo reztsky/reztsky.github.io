@@ -32,6 +32,11 @@ export default function ScoreKeeper() {
   } | null>(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
 
+  // Toggle & space enhancement states
+  const [isScoreboardVisible, setIsScoreboardVisible] = useState(true);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [isPanelCollapsed, setIsPanelCollapsed] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const tableWrapRef = useRef<HTMLDivElement>(null);
@@ -91,6 +96,17 @@ export default function ScoreKeeper() {
     };
   }, []);
 
+  // Keyboard navigation for escape out of maximized mode (WCAG R-32)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMaximized) {
+        setIsMaximized(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMaximized]);
+
   useEffect(() => {
     const handleScroll = () => {
       if (!tableWrapRef.current) return;
@@ -141,6 +157,11 @@ export default function ScoreKeeper() {
     () => players.some((p) => p.scores.some((s) => typeof s === "number" && s !== 0)),
     [players]
   );
+
+  const leaderIndex = useMemo(() => {
+    if (!hasGameStarted) return -1;
+    return playerTotals.indexOf(maxScore);
+  }, [hasGameStarted, playerTotals, maxScore]);
 
   const triggerFlash = (p: number, g: number, sign: "+" | "-") => {
     if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
@@ -244,6 +265,14 @@ export default function ScoreKeeper() {
     }
   };
 
+  const selectCell = (p: number, g: number) => {
+    setSelected({ p, g });
+    // Expand bottom scoring panel if it was minimized so user can score immediately
+    if (isPanelCollapsed) {
+      setIsPanelCollapsed(false);
+    }
+  };
+
   const isSelectedLeader = Boolean(
     selected &&
       hasGameStarted &&
@@ -273,6 +302,7 @@ export default function ScoreKeeper() {
           background: #090d16;
           color: #f1f5f9;
           -webkit-text-size-adjust: 100%;
+          overflow-x: hidden;
         }
 
         .sk-root {
@@ -280,11 +310,69 @@ export default function ScoreKeeper() {
           background-color: #090d16;
           display: flex;
           flex-direction: column;
-          padding-bottom: var(--panel-height, 240px);
+          padding-bottom: var(--panel-height, 220px);
           touch-action: manipulation;
           -webkit-tap-highlight-color: transparent;
+          transition: padding-bottom 0.25s ease;
         }
 
+        .sk-root.is-maximized {
+          padding-top: 56px;
+          padding-bottom: var(--panel-height, 220px);
+        }
+
+        /* Maximized Top Bar */
+        .sk-max-header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 52px;
+          background: rgba(14, 20, 32, 0.95);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border-bottom: 1px solid #1e293b;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 16px;
+          gap: 12px;
+        }
+
+        .sk-max-info {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 13px;
+          color: #94a3b8;
+          font-weight: 600;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .sk-max-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: #172554;
+          color: #93c5fd;
+          border: 1px solid #1e40af;
+          padding: 3px 8px;
+          border-radius: 9999px;
+          font-size: 12px;
+          font-family: 'JetBrains Mono', monospace;
+        }
+
+        .sk-max-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+
+        /* Sticky top summary pill bar */
         .sk-sticky-bar {
           position: fixed;
           top: 0;
@@ -316,7 +404,7 @@ export default function ScoreKeeper() {
           display: flex;
           align-items: center;
           gap: 8px;
-          max-width: 1040px;
+          max-width: 1120px;
           margin: 0 auto;
           min-width: min-content;
         }
@@ -325,7 +413,8 @@ export default function ScoreKeeper() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          padding: 6px 12px;
+          min-height: 44px;
+          padding: 6px 14px;
           border-radius: 9999px;
           background: #151d2c;
           border: 1px solid #233044;
@@ -366,7 +455,7 @@ export default function ScoreKeeper() {
           font-weight: 700;
           color: #93c5fd;
           background: #1e3a8a;
-          padding: 2px 7px;
+          padding: 3px 8px;
           border-radius: 9999px;
         }
 
@@ -376,12 +465,12 @@ export default function ScoreKeeper() {
         }
 
         .sk-header {
-          padding: 28px 16px 14px;
+          padding: 24px 16px 12px;
           text-align: center;
         }
 
         .sk-title {
-          font-size: clamp(24px, 5vw, 38px);
+          font-size: clamp(24px, 5vw, 36px);
           font-weight: 800;
           letter-spacing: -0.8px;
           color: #ffffff;
@@ -394,12 +483,24 @@ export default function ScoreKeeper() {
           color: #94a3b8;
         }
 
+        /* Toolbar */
         .sk-toolbar {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
           justify-content: center;
-          padding: 0 12px 18px;
+          padding: 0 12px 14px;
+          max-width: 1120px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .sk-toolbar-group {
+          display: inline-flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          align-items: center;
+          justify-content: center;
         }
 
         .sk-btn {
@@ -407,7 +508,7 @@ export default function ScoreKeeper() {
           align-items: center;
           justify-content: center;
           gap: 6px;
-          min-height: 40px;
+          min-height: 44px;
           padding: 8px 14px;
           border-radius: 8px;
           border: 1px solid transparent;
@@ -464,32 +565,61 @@ export default function ScoreKeeper() {
           cursor: not-allowed;
         }
 
-        .sk-content {
-          padding: 0 14px;
-          max-width: 1040px;
-          margin: 0 auto;
-          width: 100%;
+        .btn-toggle-active {
+          background: #1e3a8a;
+          color: #bfdbfe;
+          border-color: #3b82f6;
+        }
+        .btn-toggle-active:hover {
+          background: #2563eb;
+          color: #ffffff;
         }
 
+        /* Main Content Container */
+        .sk-content {
+          padding: 0 14px;
+          max-width: 1120px;
+          margin: 0 auto;
+          width: 100%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .sk-root.is-maximized .sk-content {
+          max-width: 100%;
+          padding: 0 10px;
+        }
+
+        /* Scoreboard Table Container with Expanded Space */
         .sk-table-wrap {
           overflow-x: auto;
           overflow-y: auto;
-          max-height: calc(100dvh - var(--panel-height, 240px) - 110px);
-          min-height: 250px;
-          border-radius: 10px;
+          min-height: 380px;
+          max-height: calc(100dvh - var(--panel-height, 220px) - 130px);
+          border-radius: 12px;
           background: #0e1422;
           border: 1px solid #1e293b;
           -webkit-overflow-scrolling: touch;
           position: relative;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          flex: 1;
+        }
+
+        .sk-root.is-maximized .sk-table-wrap {
+          min-height: calc(100dvh - var(--panel-height, 220px) - 72px);
+          max-height: calc(100dvh - var(--panel-height, 220px) - 72px);
+          border-radius: 8px;
         }
 
         table {
           width: 100%;
           border-spacing: 0;
           border-collapse: separate;
-          min-width: 320px;
+          min-width: 360px;
         }
 
+        /* Sticky header */
         thead th {
           padding: 0;
           position: sticky;
@@ -499,15 +629,74 @@ export default function ScoreKeeper() {
           border-bottom: 2px solid #1e293b;
         }
 
+        /* Sticky Left Column for Ronde Number */
+        .round-th {
+          position: sticky;
+          top: 0;
+          left: 0;
+          z-index: 40;
+          background: #0e1422;
+          width: 58px;
+          min-width: 58px;
+          border-right: 2px solid #1e293b;
+          border-bottom: 2px solid #1e293b;
+        }
+
+        .round-th-inner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 12px 6px;
+          font-size: 12px;
+          font-weight: 700;
+          color: #94a3b8;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .round-cell {
+          position: sticky;
+          left: 0;
+          z-index: 20;
+          background: #0e1422;
+          width: 58px;
+          min-width: 58px;
+          text-align: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 13px;
+          font-weight: 700;
+          color: #94a3b8;
+          border-right: 2px solid #1e293b;
+          border-bottom: 1px solid #141b2b;
+          padding: 12px 6px;
+          user-select: none;
+        }
+
+        tbody tr:nth-child(even) .round-cell {
+          background: #111929;
+        }
+
+        .round-foot {
+          position: sticky;
+          bottom: 0;
+          left: 0;
+          z-index: 30;
+          background: #0b101c;
+          border-right: 2px solid #1e293b;
+          color: #f1f5f9;
+          font-size: 13px;
+        }
+
         .th-inner {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 4px;
-          padding: 10px 8px;
+          gap: 6px;
+          padding: 12px 10px;
           position: relative;
           background: #0e1422;
           border-right: 1px solid #172033;
+          min-width: 105px;
         }
 
         .th-crown-slot {
@@ -522,13 +711,13 @@ export default function ScoreKeeper() {
           display: inline-flex;
           align-items: center;
           gap: 4px;
-          font-size: 14px;
+          font-size: 15px;
           line-height: 1;
           user-select: none;
         }
 
         .th-crown-empty {
-          height: 14px;
+          height: 15px;
         }
 
         .th-inner.is-leader-header {
@@ -537,37 +726,37 @@ export default function ScoreKeeper() {
         }
 
         .th-name-input {
-          background: transparent;
-          border: none;
-          outline: none;
+          background: #131a28;
+          border: 1px solid #233044;
+          border-radius: 6px;
           color: #f1f5f9;
           font-family: inherit;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 700;
           text-align: center;
           width: 100%;
-          border-bottom: 2px solid transparent;
-          transition: border-color 0.15s;
-          padding: 2px 0;
+          transition: border-color 0.15s, background-color 0.15s;
+          padding: 6px 4px;
           min-width: 0;
         }
 
         .th-name-input:focus {
-          border-bottom-color: #3b82f6;
+          border-color: #3b82f6;
+          background: #172554;
         }
 
         .th-total-badge {
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 700;
           font-family: 'JetBrains Mono', monospace;
-          padding: 2px 8px;
+          padding: 3px 10px;
           border-radius: 9999px;
           background: #1e293b;
           color: #93c5fd;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 3px;
+          gap: 4px;
         }
 
         .th-total-badge.badge-leader {
@@ -606,21 +795,24 @@ export default function ScoreKeeper() {
         }
 
         tbody tr:nth-child(even) {
-          background: rgba(255, 255, 255, 0.015);
+          background: rgba(255, 255, 255, 0.02);
         }
 
+        /* Larger, thumb-friendly score cells */
         td.score-cell {
-          padding: 11px 6px;
+          padding: 13px 8px;
           text-align: center;
           cursor: pointer;
           font-family: 'JetBrains Mono', monospace;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
           color: #cbd5e1;
           border-bottom: 1px solid #141b2b;
           border-right: 1px solid #141b2b;
           user-select: none;
-          transition: background-color 0.12s;
+          min-width: 84px;
+          min-height: 48px;
+          transition: background-color 0.12s, box-shadow 0.12s;
         }
 
         td.score-cell:hover {
@@ -650,16 +842,25 @@ export default function ScoreKeeper() {
           100% { background: transparent; }
         }
 
+        /* Sticky Table Footer */
         tfoot tr {
           border-top: 2px solid #1e293b;
           background: #0b101c;
         }
 
+        tfoot td {
+          position: sticky;
+          bottom: 0;
+          z-index: 25;
+          background: #0b101c;
+          border-top: 2px solid #1e293b;
+        }
+
         tfoot .foot-total {
-          padding: 12px 6px;
+          padding: 14px 8px;
           text-align: center;
           font-family: 'JetBrains Mono', monospace;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 700;
           color: #34d399;
           border-right: 1px solid #172033;
@@ -671,29 +872,138 @@ export default function ScoreKeeper() {
         }
 
         .foot-crown {
-          font-size: 13px;
+          font-size: 14px;
           line-height: 1;
         }
 
+        /* Collapsed Scoreboard View */
+        .sk-collapsed-card {
+          background: #0e1422;
+          border: 1px solid #1e293b;
+          border-radius: 12px;
+          padding: 24px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          margin-top: 10px;
+        }
+
+        .sk-collapsed-title {
+          font-size: 18px;
+          font-weight: 700;
+          color: #f1f5f9;
+        }
+
+        .sk-collapsed-desc {
+          font-size: 13px;
+          color: #94a3b8;
+          max-width: 440px;
+        }
+
+        .sk-collapsed-summary {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: center;
+          width: 100%;
+          max-width: 640px;
+          margin-top: 8px;
+        }
+
+        .sk-summary-item {
+          background: #151d2c;
+          border: 1px solid #233044;
+          border-radius: 10px;
+          padding: 10px 16px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex: 1;
+          min-width: 140px;
+          justify-content: space-between;
+        }
+
+        .sk-summary-item.leader {
+          border-color: #d97706;
+          background: #26190a;
+        }
+
+        .sk-summary-name {
+          font-size: 14px;
+          font-weight: 600;
+          color: #e2e8f0;
+        }
+
+        .sk-summary-score {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 15px;
+          font-weight: 700;
+          color: #93c5fd;
+        }
+
+        .sk-summary-item.leader .sk-summary-score {
+          color: #fef08a;
+        }
+
+        /* Bottom Control Panel */
         .sk-panel {
           position: fixed;
           bottom: 0;
           left: 0;
           right: 0;
-          background: rgba(11, 16, 26, 0.96);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
+          background: rgba(11, 16, 26, 0.98);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
           border-top: 1px solid #1e293b;
-          padding: 10px 14px calc(12px + env(safe-area-inset-bottom, 0px));
+          padding: 4px 14px calc(10px + env(safe-area-inset-bottom, 0px));
           z-index: 80;
+          transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sk-panel.collapsed {
+          padding-top: 4px;
+          padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+        }
+
+        .panel-collapse-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 580px;
+          margin: 0 auto 6px;
+          padding: 0 4px;
+        }
+
+        .panel-toggle-btn {
+          background: transparent;
+          border: 1px solid #233044;
+          color: #94a3b8;
+          font-size: 12px;
+          font-weight: 600;
+          padding: 4px 10px;
+          border-radius: 6px;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          min-height: 32px;
+          transition: background-color 0.15s, color 0.15s;
+        }
+
+        .panel-toggle-btn:hover {
+          background: #172033;
+          color: #f1f5f9;
         }
 
         .panel-hint {
           text-align: center;
-          font-size: 12px;
-          color: #64748b;
-          margin-bottom: 8px;
+          font-size: 13px;
+          color: #94a3b8;
           font-weight: 500;
+          flex: 1;
         }
 
         .panel-hint span {
@@ -718,7 +1028,7 @@ export default function ScoreKeeper() {
           border-radius: 8px;
           border: 1px solid transparent;
           font-family: 'JetBrains Mono', monospace;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 700;
           cursor: pointer;
           transition: background-color 0.12s, transform 0.1s;
@@ -759,7 +1069,7 @@ export default function ScoreKeeper() {
 
         .custom-input {
           flex: 1;
-          min-height: 42px;
+          min-height: 44px;
           background: #131a28;
           border: 1px solid #233044;
           border-radius: 8px;
@@ -778,18 +1088,18 @@ export default function ScoreKeeper() {
           border-color: #3b82f6;
         }
         .custom-input::placeholder {
-          color: #475569;
+          color: #64748b;
         }
 
         .custom-add {
-          min-height: 42px;
+          min-height: 44px;
           min-width: 54px;
           background: #2563eb;
           color: #ffffff;
           border: 1px solid #3b82f6;
           border-radius: 8px;
           font-family: inherit;
-          font-size: 16px;
+          font-size: 17px;
           font-weight: 700;
           cursor: pointer;
           transition: background-color 0.12s;
@@ -799,14 +1109,14 @@ export default function ScoreKeeper() {
         }
 
         .custom-sub {
-          min-height: 42px;
+          min-height: 44px;
           min-width: 54px;
           background: #991b1b;
           color: #ffffff;
           border: 1px solid #b91c1c;
           border-radius: 8px;
           font-family: inherit;
-          font-size: 16px;
+          font-size: 17px;
           font-weight: 700;
           cursor: pointer;
           transition: background-color 0.12s;
@@ -815,31 +1125,68 @@ export default function ScoreKeeper() {
           background: #7f1d1d;
         }
 
+        /* Mobile specific reflow and tap sizes */
         @media (max-width: 600px) {
-          .sk-root {
-            padding-bottom: 230px;
-          }
           .sk-header {
-            padding: 20px 12px 10px;
+            padding: 16px 12px 10px;
+          }
+          .sk-title {
+            font-size: 24px;
           }
           .sk-toolbar {
             gap: 6px;
-            padding: 0 10px 12px;
+            padding: 0 8px 10px;
+          }
+          .sk-toolbar-group {
+            gap: 6px;
+            width: 100%;
+            justify-content: stretch;
+          }
+          .sk-toolbar-group .sk-btn {
+            flex: 1 1 auto;
           }
           .sk-btn {
-            min-height: 36px;
-            padding: 6px 11px;
+            min-height: 44px;
+            padding: 8px 10px;
             font-size: 12px;
+          }
+          .sk-content {
+            padding: 0 8px;
+          }
+          .round-th,
+          .round-cell {
+            width: 48px;
+            min-width: 48px;
+            font-size: 11px;
+            padding: 10px 4px;
+          }
+          .th-inner {
+            min-width: 88px;
+            padding: 10px 6px;
+          }
+          .th-name-input {
+            font-size: 14px;
+            padding: 4px;
+          }
+          td.score-cell {
+            min-width: 72px;
+            font-size: 15px;
+            padding: 12px 6px;
           }
           .panel-grid {
             gap: 4px;
           }
           .preset-btn {
-            font-size: 12px;
-            min-height: 42px;
+            font-size: 13px;
+            min-height: 44px;
           }
           .sk-table-wrap {
-            max-height: calc(100dvh - var(--panel-height, 230px) - 90px);
+            min-height: 280px;
+            max-height: calc(100dvh - var(--panel-height, 220px) - 100px);
+          }
+          .sk-root.is-maximized .sk-table-wrap {
+            min-height: calc(100dvh - var(--panel-height, 220px) - 64px);
+            max-height: calc(100dvh - var(--panel-height, 220px) - 64px);
           }
         }
 
@@ -867,266 +1214,407 @@ export default function ScoreKeeper() {
         }
       `}</style>
 
-      <div className="sk-root">
-        <div
-          ref={stickyBarRef}
-          className={`sk-sticky-bar ${showStickyBar ? "visible" : ""}`}
-          onScroll={handleStickyBarScroll}
-          aria-label="Papan skor tersemat"
-        >
-          <div className="sk-sticky-bar-track">
-            {players.map((player, i) => {
-              const total = playerTotals[i] ?? 0;
-              const isLeader = hasGameStarted && total === maxScore;
-              const isSelected = selected?.p === i;
+      <div
+        className={`sk-root ${isMaximized ? "is-maximized" : ""}`}
+        style={
+          {
+            "--panel-height": isPanelCollapsed ? "54px" : "220px",
+          } as React.CSSProperties
+        }
+      >
+        {/* Maximized View Top Bar */}
+        {isMaximized && (
+          <header className="sk-max-header" aria-label="Menu bilah atas layar penuh">
+            <div className="sk-max-info">
+              <span className="sk-max-badge">
+                {numGames} Ronde · {players.length} Pemain
+              </span>
+              {leaderIndex >= 0 && (
+                <span>
+                  👑 {players[leaderIndex]?.name} ({maxScore})
+                </span>
+              )}
+            </div>
+            <div className="sk-max-actions">
+              <button
+                type="button"
+                className={`sk-btn ${isScoreboardVisible ? "btn-toggle-active" : "btn-ghost"}`}
+                onClick={() => setIsScoreboardVisible(!isScoreboardVisible)}
+                title="Buka atau sembunyikan tabel scoreboard"
+              >
+                {isScoreboardVisible ? "👁 Sembunyikan" : "👁 Tampilkan"}
+              </button>
+              <button
+                type="button"
+                className="sk-btn btn-ghost"
+                onClick={() => setIsMaximized(false)}
+                title="Keluar dari mode layar penuh (Escape)"
+              >
+                ✕ Perkecil
+              </button>
+            </div>
+          </header>
+        )}
 
-              return (
-                <button
-                  key={i}
-                  type="button"
-                  className={`sticky-player-pill ${isLeader ? "leader-pill" : ""} ${isSelected ? "selected-pill" : ""}`}
-                  onClick={() => {
-                    const row = selected ? selected.g : 0;
-                    setSelected({ p: i, g: row });
-                  }}
-                  title={`Pilih ${player.name}`}
-                >
-                  {isLeader && <span className="sticky-crown">👑</span>}
-                  <span className="sticky-player-name">{player.name}</span>
-                  <span className={`sticky-player-score ${isLeader ? "leader-score" : ""}`}>
-                    {total}
-                  </span>
-                </button>
-              );
-            })}
+        {/* Sticky Header Bar (appears on scroll in normal mode) */}
+        {!isMaximized && (
+          <div
+            ref={stickyBarRef}
+            className={`sk-sticky-bar ${showStickyBar ? "visible" : ""}`}
+            onScroll={handleStickyBarScroll}
+            aria-label="Papan skor tersemat"
+          >
+            <div className="sk-sticky-bar-track">
+              {players.map((player, i) => {
+                const total = playerTotals[i] ?? 0;
+                const isLeader = hasGameStarted && total === maxScore;
+                const isSelected = selected?.p === i;
+
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`sticky-player-pill ${isLeader ? "leader-pill" : ""} ${isSelected ? "selected-pill" : ""}`}
+                    onClick={() => {
+                      const row = selected ? selected.g : 0;
+                      selectCell(i, row);
+                    }}
+                    title={`Pilih ${player.name}`}
+                  >
+                    {isLeader && <span className="sticky-crown">👑</span>}
+                    <span className="sticky-player-name">{player.name}</span>
+                    <span className={`sticky-player-score ${isLeader ? "leader-score" : ""}`}>
+                      {total}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className={`sk-toast ${restored ? "show" : ""}`} role="status">
           Sesi permainan berhasil dipulihkan
         </div>
 
-        <header className="sk-header">
-          <h1 className="sk-title">ScoreKeeper</h1>
-          <p className="sk-subtitle">Pilih kotak ronde lalu tentukan nilai skor</p>
-        </header>
+        {/* Regular Header & Toolbar (hidden in maximized mode) */}
+        {!isMaximized && (
+          <>
+            <header className="sk-header">
+              <h1 className="sk-title">ScoreKeeper</h1>
+              <p className="sk-subtitle">Pilih kotak ronde lalu tentukan nilai skor</p>
+            </header>
 
-        <nav className="sk-toolbar" aria-label="Aksi permainan">
-          <button type="button" className="sk-btn btn-primary" onClick={addPlayer}>
-            ＋ Pemain
-          </button>
-          <button type="button" className="sk-btn btn-success" onClick={addGame}>
-            ＋ Ronde
-          </button>
-          <button
-            type="button"
-            className="sk-btn btn-ghost"
-            onClick={removeGame}
-            disabled={numGames <= 1}
-          >
-            － Ronde
-          </button>
-          <button type="button" className="sk-btn btn-danger" onClick={resetAll}>
-            ↺ Atur Ulang
-          </button>
-        </nav>
+            <nav className="sk-toolbar" aria-label="Aksi permainan dan tampilan">
+              <div className="sk-toolbar-group">
+                <button
+                  type="button"
+                  className={`sk-btn ${isScoreboardVisible ? "btn-toggle-active" : "btn-ghost"}`}
+                  onClick={() => setIsScoreboardVisible(!isScoreboardVisible)}
+                  title="Sembunyikan atau tampilkan tabel scoreboard"
+                  aria-pressed={isScoreboardVisible}
+                >
+                  {isScoreboardVisible ? "👁 Sembunyikan Tabel" : "👁 Buka Tabel Skor"}
+                </button>
+                <button
+                  type="button"
+                  className="sk-btn btn-ghost"
+                  onClick={() => setIsMaximized(true)}
+                  title="Perluas tampilan scoreboard ke layar penuh"
+                >
+                  ⛶ Perluas Layar
+                </button>
+              </div>
 
+              <div className="sk-toolbar-group">
+                <button type="button" className="sk-btn btn-primary" onClick={addPlayer}>
+                  ＋ Pemain
+                </button>
+                <button type="button" className="sk-btn btn-success" onClick={addGame}>
+                  ＋ Ronde
+                </button>
+                <button
+                  type="button"
+                  className="sk-btn btn-ghost"
+                  onClick={removeGame}
+                  disabled={numGames <= 1}
+                >
+                  － Ronde
+                </button>
+                <button type="button" className="sk-btn btn-danger" onClick={resetAll}>
+                  ↺ Atur Ulang
+                </button>
+              </div>
+            </nav>
+          </>
+        )}
+
+        {/* Main Content Area */}
         <main className="sk-content">
-          <div
-            ref={tableWrapRef}
-            className="sk-table-wrap"
-            onScroll={handleTableScroll}
-            tabIndex={0}
-            aria-label="Tabel skor pertandingan"
-          >
-            <table>
-              <thead>
-                <tr>
-                  {players.map((player, i) => {
-                    const total = playerTotals[i] ?? 0;
-                    const isLeader = hasGameStarted && total === maxScore;
+          {isScoreboardVisible ? (
+            <div
+              ref={tableWrapRef}
+              className="sk-table-wrap"
+              onScroll={handleTableScroll}
+              tabIndex={0}
+              aria-label="Tabel skor pertandingan"
+            >
+              <table>
+                <thead>
+                  <tr>
+                    {/* Fixed Round Column Header */}
+                    <th className="round-th" scope="col">
+                      <div className="round-th-inner">Ronde</div>
+                    </th>
 
-                    return (
-                      <th key={i} scope="col">
-                        <div className={`th-inner ${isLeader ? "is-leader-header" : ""}`}>
-                          <div className="th-crown-slot">
-                            {isLeader ? (
-                              <span className="th-crown-badge" title="Skor tertinggi saat ini">
-                                👑
-                              </span>
-                            ) : (
-                              <span className="th-crown-empty" />
-                            )}
+                    {/* Player Column Headers */}
+                    {players.map((player, i) => {
+                      const total = playerTotals[i] ?? 0;
+                      const isLeader = hasGameStarted && total === maxScore;
+
+                      return (
+                        <th key={i} scope="col">
+                          <div className={`th-inner ${isLeader ? "is-leader-header" : ""}`}>
+                            <div className="th-crown-slot">
+                              {isLeader ? (
+                                <span className="th-crown-badge" title="Skor tertinggi saat ini">
+                                  👑
+                                </span>
+                              ) : (
+                                <span className="th-crown-empty" />
+                              )}
+                            </div>
+
+                            <input
+                              className="th-name-input"
+                              value={player.name}
+                              onChange={(e) => handleNameChange(i, e.target.value)}
+                              maxLength={18}
+                              placeholder={`P${i + 1}`}
+                              aria-label={`Nama pemain ${i + 1}`}
+                            />
+                            <span
+                              className={`th-total-badge ${
+                                isLeader ? "badge-leader" : ""
+                              }`}
+                            >
+                              {isLeader && <span className="mini-crown-text">👑 </span>}
+                              {total}
+                            </span>
+                            <button
+                              type="button"
+                              className="th-remove-btn"
+                              onClick={() => removePlayer(i)}
+                              title="Hapus pemain"
+                              aria-label={`Hapus ${player.name}`}
+                              disabled={players.length <= 2}
+                            >
+                              ✕
+                            </button>
                           </div>
+                        </th>
+                      );
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({ length: numGames }, (_, row) => (
+                    <tr key={row}>
+                      {/* Fixed Left Round Number Indicator */}
+                      <td className="round-cell">R{row + 1}</td>
 
-                          <input
-                            className="th-name-input"
-                            value={player.name}
-                            onChange={(e) => handleNameChange(i, e.target.value)}
-                            maxLength={18}
-                            placeholder={`P${i + 1}`}
-                            aria-label={`Nama pemain ${i + 1}`}
-                          />
-                          <span
-                            className={`th-total-badge ${
-                              isLeader ? "badge-leader" : ""
-                            }`}
+                      {/* Player Score Cells */}
+                      {players.map((p, col) => {
+                        const isSelected =
+                          selected?.p === col && selected?.g === row;
+                        const isFlash = flash?.p === col && flash?.g === row;
+                        const flashClass = isFlash
+                          ? flash?.sign === "+"
+                            ? "flash-pos"
+                            : "flash-neg"
+                          : "";
+                        const cellScore = p.scores?.[row] ?? 0;
+
+                        return (
+                          <td
+                            key={col}
+                            className={`score-cell ${
+                              isSelected ? "selected" : ""
+                            } ${flashClass}`}
+                            onClick={() => selectCell(col, row)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                selectCell(col, row);
+                              }
+                            }}
+                            aria-label={`${p.name}, Ronde ${row + 1}: ${cellScore} poin`}
                           >
-                            {isLeader && <span className="mini-crown-text">👑 </span>}
-                            {total}
-                          </span>
-                          <button
-                            type="button"
-                            className="th-remove-btn"
-                            onClick={() => removePlayer(i)}
-                            title="Hapus pemain"
-                            aria-label={`Hapus ${player.name}`}
-                            disabled={players.length <= 2}
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: numGames }, (_, row) => (
-                  <tr key={row}>
-                    {players.map((p, col) => {
-                      const isSelected =
-                        selected?.p === col && selected?.g === row;
-                      const isFlash = flash?.p === col && flash?.g === row;
-                      const flashClass = isFlash
-                        ? flash?.sign === "+"
-                          ? "flash-pos"
-                          : "flash-neg"
-                        : "";
-                      const cellScore = p.scores?.[row] ?? 0;
+                            {cellScore}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td className="round-cell round-foot">Total</td>
+                    {players.map((p, i) => {
+                      const total = playerTotals[i] ?? 0;
+                      const isLeader = hasGameStarted && total === maxScore;
 
                       return (
                         <td
-                          key={col}
-                          className={`score-cell ${
-                            isSelected ? "selected" : ""
-                          } ${flashClass}`}
-                          onClick={() => setSelected({ p: col, g: row })}
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              setSelected({ p: col, g: row });
-                            }
-                          }}
-                          aria-label={`${p.name}, Ronde ${row + 1}: ${cellScore} poin`}
+                          key={i}
+                          className={`foot-total ${
+                            isLeader ? "leader-total" : ""
+                          }`}
                         >
-                          {cellScore}
+                          {isLeader && <span className="foot-crown">👑 </span>}
+                          {total}
                         </td>
                       );
                     })}
                   </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                  {players.map((p, i) => {
-                    const total = playerTotals[i] ?? 0;
-                    const isLeader = hasGameStarted && total === maxScore;
+                </tfoot>
+              </table>
+            </div>
+          ) : (
+            /* Collapsed State Summary Card */
+            <div className="sk-collapsed-card">
+              <div className="sk-collapsed-title">Tabel Scoreboard Ditutup</div>
+              <p className="sk-collapsed-desc">
+                Tabel skor sedang disembunyikan untuk memberikan ruang pandang yang lebih luas.
+                Gunakan tombol di bawah untuk membukanya kembali kapan saja.
+              </p>
 
-                    return (
-                      <td
-                        key={i}
-                        className={`foot-total ${
-                          isLeader ? "leader-total" : ""
-                        }`}
-                      >
-                        {isLeader && <span className="foot-crown">👑 </span>}
-                        {total}
-                      </td>
-                    );
-                  })}
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+              <div className="sk-collapsed-summary">
+                {players.map((player, idx) => {
+                  const total = playerTotals[idx] ?? 0;
+                  const isLeader = hasGameStarted && total === maxScore;
+                  return (
+                    <div
+                      key={idx}
+                      className={`sk-summary-item ${isLeader ? "leader" : ""}`}
+                    >
+                      <span className="sk-summary-name">
+                        {isLeader && "👑 "}
+                        {player.name}
+                      </span>
+                      <span className="sk-summary-score">{total}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                className="sk-btn btn-primary"
+                onClick={() => setIsScoreboardVisible(true)}
+              >
+                👁 Buka Tabel Scoreboard
+              </button>
+            </div>
+          )}
         </main>
 
-        <section className="sk-panel" aria-label="Kontrol input skor">
-          <div className="panel-hint">
-            {selected && players[selected.p] ? (
-              <>
-                <span className={isSelectedLeader ? "leader-hint" : ""}>
-                  {isSelectedLeader && "👑 "}
-                  {players[selected.p].name}
-                  {isSelectedLeader && " (Pemimpin)"}
-                </span>{" "}
-                · Ronde {selected.g + 1}
-              </>
-            ) : (
-              "Ketuk salah satu kotak ronde untuk mengisi skor"
-            )}
-          </div>
+        {/* Bottom Scoring Panel (Collapsible to maximize space) */}
+        <section
+          className={`sk-panel ${isPanelCollapsed ? "collapsed" : ""}`}
+          aria-label="Kontrol input skor"
+        >
+          <div className="panel-collapse-bar">
+            <div className="panel-hint">
+              {selected && players[selected.p] ? (
+                <>
+                  <span className={isSelectedLeader ? "leader-hint" : ""}>
+                    {isSelectedLeader && "👑 "}
+                    {players[selected.p].name}
+                    {isSelectedLeader && " (Pemimpin)"}
+                  </span>{" "}
+                  · Ronde {selected.g + 1}
+                </>
+              ) : (
+                "Ketuk salah satu kotak ronde untuk mengisi skor"
+              )}
+            </div>
 
-          <div className="panel-grid">
-            {SCORE_PRESETS.map((v) => (
-              <button
-                key={v}
-                type="button"
-                className="preset-btn preset-add"
-                onClick={() => updateScore(v)}
-                aria-label={`Tambah ${v} poin`}
-              >
-                +{v}
-              </button>
-            ))}
-            {SCORE_PRESETS.map((v) => (
-              <button
-                key={v}
-                type="button"
-                className="preset-btn preset-sub"
-                onClick={() => updateScore(-v)}
-                aria-label={`Kurangi ${v} poin`}
-              >
-                -{v}
-              </button>
-            ))}
-          </div>
-
-          <div className="panel-custom">
-            <input
-              ref={inputRef}
-              className="custom-input"
-              placeholder="Skor kustom…"
-              value={customVal}
-              onChange={(e) => setCustomVal(e.target.value.replace(/\D/g, ""))}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleCustomScore(1);
-              }}
-              type="text"
-              inputMode="numeric"
-              aria-label="Nilai skor kustom"
-            />
             <button
               type="button"
-              className="custom-add"
-              onClick={() => handleCustomScore(1)}
-              title="Tambah nilai kustom"
-              aria-label="Tambahkan skor kustom"
+              className="panel-toggle-btn"
+              onClick={() => setIsPanelCollapsed(!isPanelCollapsed)}
+              title={isPanelCollapsed ? "Buka panel tombol skor" : "Tutup panel untuk memperluas scoreboard"}
+              aria-label={isPanelCollapsed ? "Tampilkan panel skor" : "Sembunyikan panel skor"}
             >
-              ＋
-            </button>
-            <button
-              type="button"
-              className="custom-sub"
-              onClick={() => handleCustomScore(-1)}
-              title="Kurangi nilai kustom"
-              aria-label="Kurangkan skor kustom"
-            >
-              －
+              {isPanelCollapsed ? "▲ Buka Input" : "▼ Ciutkan Input"}
             </button>
           </div>
+
+          {!isPanelCollapsed && (
+            <>
+              <div className="panel-grid">
+                {SCORE_PRESETS.map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    className="preset-btn preset-add"
+                    onClick={() => updateScore(v)}
+                    aria-label={`Tambah ${v} poin`}
+                  >
+                    +{v}
+                  </button>
+                ))}
+                {SCORE_PRESETS.map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    className="preset-btn preset-sub"
+                    onClick={() => updateScore(-v)}
+                    aria-label={`Kurangi ${v} poin`}
+                  >
+                    -{v}
+                  </button>
+                ))}
+              </div>
+
+              <div className="panel-custom">
+                <input
+                  ref={inputRef}
+                  className="custom-input"
+                  placeholder="Skor kustom…"
+                  value={customVal}
+                  onChange={(e) => setCustomVal(e.target.value.replace(/\D/g, ""))}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleCustomScore(1);
+                  }}
+                  type="text"
+                  inputMode="numeric"
+                  aria-label="Nilai skor kustom"
+                />
+                <button
+                  type="button"
+                  className="custom-add"
+                  onClick={() => handleCustomScore(1)}
+                  title="Tambah nilai kustom"
+                  aria-label="Tambahkan skor kustom"
+                >
+                  ＋
+                </button>
+                <button
+                  type="button"
+                  className="custom-sub"
+                  onClick={() => handleCustomScore(-1)}
+                  title="Kurangi nilai kustom"
+                  aria-label="Kurangkan skor kustom"
+                >
+                  －
+                </button>
+              </div>
+            </>
+          )}
         </section>
       </div>
     </>
