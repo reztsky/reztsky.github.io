@@ -327,7 +327,7 @@ export default function ScoreKeeper() {
           top: 0;
           left: 0;
           right: 0;
-          height: 52px;
+          height: 50px;
           background: rgba(14, 20, 32, 0.95);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
@@ -336,20 +336,21 @@ export default function ScoreKeeper() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 16px;
-          gap: 12px;
+          padding: 0 12px;
+          gap: 8px;
         }
 
         .sk-max-info {
           display: flex;
           align-items: center;
-          gap: 10px;
-          font-size: 13px;
+          gap: 6px;
+          font-size: 12px;
           color: #94a3b8;
           font-weight: 600;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          min-width: 0;
         }
 
         .sk-max-badge {
@@ -359,17 +360,25 @@ export default function ScoreKeeper() {
           background: #172554;
           color: #93c5fd;
           border: 1px solid #1e40af;
-          padding: 3px 8px;
+          padding: 2px 7px;
           border-radius: 9999px;
-          font-size: 12px;
+          font-size: 11px;
           font-family: 'JetBrains Mono', monospace;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .sk-max-actions {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 6px;
           flex-shrink: 0;
+        }
+
+        .sk-max-actions .sk-btn {
+          min-height: 36px;
+          padding: 6px 10px;
+          font-size: 12px;
         }
 
         /* Sticky top summary pill bar */
@@ -592,11 +601,12 @@ export default function ScoreKeeper() {
         }
 
         /* Scoreboard Table Container with Expanded Space */
+        /* Scoreboard Table Container with Expanded Vertical Space & No Horizontal Scroll */
         .sk-table-wrap {
-          overflow-x: auto;
+          overflow-x: hidden;
           overflow-y: auto;
           min-height: 380px;
-          max-height: calc(100dvh - var(--panel-height, 220px) - 130px);
+          max-height: calc(100dvh - var(--panel-height, 220px) - 120px);
           border-radius: 12px;
           background: #0e1422;
           border: 1px solid #1e293b;
@@ -607,8 +617,8 @@ export default function ScoreKeeper() {
         }
 
         .sk-root.is-maximized .sk-table-wrap {
-          min-height: calc(100dvh - var(--panel-height, 220px) - 72px);
-          max-height: calc(100dvh - var(--panel-height, 220px) - 72px);
+          min-height: calc(100dvh - var(--panel-height, 220px) - 60px);
+          max-height: calc(100dvh - var(--panel-height, 220px) - 60px);
           border-radius: 8px;
         }
 
@@ -616,7 +626,7 @@ export default function ScoreKeeper() {
           width: 100%;
           border-spacing: 0;
           border-collapse: separate;
-          min-width: 360px;
+          table-layout: fixed;
         }
 
         /* Sticky header */
@@ -627,80 +637,25 @@ export default function ScoreKeeper() {
           z-index: 30;
           background: #0e1422;
           border-bottom: 2px solid #1e293b;
-        }
-
-        /* Sticky Left Column for Ronde Number */
-        .round-th {
-          position: sticky;
-          top: 0;
-          left: 0;
-          z-index: 40;
-          background: #0e1422;
-          width: 58px;
-          min-width: 58px;
-          border-right: 2px solid #1e293b;
-          border-bottom: 2px solid #1e293b;
-        }
-
-        .round-th-inner {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 12px 6px;
-          font-size: 12px;
-          font-weight: 700;
-          color: #94a3b8;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .round-cell {
-          position: sticky;
-          left: 0;
-          z-index: 20;
-          background: #0e1422;
-          width: 58px;
-          min-width: 58px;
-          text-align: center;
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 13px;
-          font-weight: 700;
-          color: #94a3b8;
-          border-right: 2px solid #1e293b;
-          border-bottom: 1px solid #141b2b;
-          padding: 12px 6px;
-          user-select: none;
-        }
-
-        tbody tr:nth-child(even) .round-cell {
-          background: #111929;
-        }
-
-        .round-foot {
-          position: sticky;
-          bottom: 0;
-          left: 0;
-          z-index: 30;
-          background: #0b101c;
-          border-right: 2px solid #1e293b;
-          color: #f1f5f9;
-          font-size: 13px;
+          vertical-align: top;
         }
 
         .th-inner {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 6px;
-          padding: 12px 10px;
+          gap: 5px;
+          padding: 10px 4px;
           position: relative;
           background: #0e1422;
           border-right: 1px solid #172033;
-          min-width: 105px;
+          width: 100%;
+          box-sizing: border-box;
+          min-width: 0;
         }
 
         .th-crown-slot {
-          height: 22px;
+          height: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -710,14 +665,14 @@ export default function ScoreKeeper() {
         .th-crown-badge {
           display: inline-flex;
           align-items: center;
-          gap: 4px;
-          font-size: 15px;
+          gap: 3px;
+          font-size: 14px;
           line-height: 1;
           user-select: none;
         }
 
         .th-crown-empty {
-          height: 15px;
+          height: 14px;
         }
 
         .th-inner.is-leader-header {
@@ -731,13 +686,16 @@ export default function ScoreKeeper() {
           border-radius: 6px;
           color: #f1f5f9;
           font-family: inherit;
-          font-size: 15px;
+          font-size: 14px;
           font-weight: 700;
           text-align: center;
-          width: 100%;
+          width: 96%;
+          max-width: 100%;
           transition: border-color 0.15s, background-color 0.15s;
-          padding: 6px 4px;
+          padding: 4px 2px;
           min-width: 0;
+          box-sizing: border-box;
+          text-overflow: ellipsis;
         }
 
         .th-name-input:focus {
@@ -746,17 +704,18 @@ export default function ScoreKeeper() {
         }
 
         .th-total-badge {
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
           font-family: 'JetBrains Mono', monospace;
-          padding: 3px 10px;
+          padding: 3px 8px;
           border-radius: 9999px;
           background: #1e293b;
           color: #93c5fd;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 4px;
+          gap: 3px;
+          white-space: nowrap;
         }
 
         .th-total-badge.badge-leader {
@@ -777,7 +736,7 @@ export default function ScoreKeeper() {
           cursor: pointer;
           font-size: 12px;
           line-height: 1;
-          padding: 4px 6px;
+          padding: 3px 6px;
           border-radius: 4px;
           transition: color 0.15s, background-color 0.15s;
         }
@@ -798,9 +757,9 @@ export default function ScoreKeeper() {
           background: rgba(255, 255, 255, 0.02);
         }
 
-        /* Larger, thumb-friendly score cells */
+        /* Thumb-friendly, flexible score cells that fit all players on screen */
         td.score-cell {
-          padding: 13px 8px;
+          padding: 12px 2px;
           text-align: center;
           cursor: pointer;
           font-family: 'JetBrains Mono', monospace;
@@ -810,8 +769,9 @@ export default function ScoreKeeper() {
           border-bottom: 1px solid #141b2b;
           border-right: 1px solid #141b2b;
           user-select: none;
-          min-width: 84px;
           min-height: 48px;
+          height: 48px;
+          box-sizing: border-box;
           transition: background-color 0.12s, box-shadow 0.12s;
         }
 
@@ -857,13 +817,14 @@ export default function ScoreKeeper() {
         }
 
         tfoot .foot-total {
-          padding: 14px 8px;
+          padding: 12px 2px;
           text-align: center;
           font-family: 'JetBrains Mono', monospace;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 700;
           color: #34d399;
           border-right: 1px solid #172033;
+          box-sizing: border-box;
         }
 
         tfoot .foot-total.leader-total {
@@ -974,36 +935,41 @@ export default function ScoreKeeper() {
           justify-content: space-between;
           max-width: 580px;
           margin: 0 auto 6px;
-          padding: 0 4px;
+          padding: 0 6px;
+          gap: 8px;
         }
 
         .panel-toggle-btn {
-          background: transparent;
+          background: #151d2c;
           border: 1px solid #233044;
-          color: #94a3b8;
+          color: #93c5fd;
           font-size: 12px;
           font-weight: 600;
-          padding: 4px 10px;
+          padding: 5px 12px;
           border-radius: 6px;
           cursor: pointer;
           display: inline-flex;
           align-items: center;
-          gap: 6px;
-          min-height: 32px;
+          gap: 4px;
+          min-height: 36px;
+          flex-shrink: 0;
           transition: background-color 0.15s, color 0.15s;
         }
 
         .panel-toggle-btn:hover {
-          background: #172033;
-          color: #f1f5f9;
+          background: #1e293b;
+          color: #ffffff;
         }
 
         .panel-hint {
-          text-align: center;
-          font-size: 13px;
+          text-align: left;
+          font-size: 12px;
           color: #94a3b8;
           font-weight: 500;
           flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .panel-hint span {
@@ -1151,27 +1117,27 @@ export default function ScoreKeeper() {
             font-size: 12px;
           }
           .sk-content {
-            padding: 0 8px;
-          }
-          .round-th,
-          .round-cell {
-            width: 48px;
-            min-width: 48px;
-            font-size: 11px;
-            padding: 10px 4px;
+            padding: 0 6px;
           }
           .th-inner {
-            min-width: 88px;
-            padding: 10px 6px;
+            padding: 8px 2px;
+            gap: 4px;
           }
           .th-name-input {
-            font-size: 14px;
-            padding: 4px;
+            font-size: 13px;
+            padding: 3px 2px;
+          }
+          .th-total-badge {
+            font-size: 11px;
+            padding: 2px 6px;
           }
           td.score-cell {
-            min-width: 72px;
             font-size: 15px;
-            padding: 12px 6px;
+            padding: 12px 2px;
+          }
+          tfoot .foot-total {
+            font-size: 14px;
+            padding: 10px 2px;
           }
           .panel-grid {
             gap: 4px;
@@ -1181,12 +1147,12 @@ export default function ScoreKeeper() {
             min-height: 44px;
           }
           .sk-table-wrap {
-            min-height: 280px;
-            max-height: calc(100dvh - var(--panel-height, 220px) - 100px);
+            min-height: 300px;
+            max-height: calc(100dvh - var(--panel-height, 220px) - 90px);
           }
           .sk-root.is-maximized .sk-table-wrap {
-            min-height: calc(100dvh - var(--panel-height, 220px) - 64px);
-            max-height: calc(100dvh - var(--panel-height, 220px) - 64px);
+            min-height: calc(100dvh - var(--panel-height, 220px) - 54px);
+            max-height: calc(100dvh - var(--panel-height, 220px) - 54px);
           }
         }
 
@@ -1362,11 +1328,6 @@ export default function ScoreKeeper() {
               <table>
                 <thead>
                   <tr>
-                    {/* Fixed Round Column Header */}
-                    <th className="round-th" scope="col">
-                      <div className="round-th-inner">Ronde</div>
-                    </th>
-
                     {/* Player Column Headers */}
                     {players.map((player, i) => {
                       const total = playerTotals[i] ?? 0;
@@ -1420,9 +1381,6 @@ export default function ScoreKeeper() {
                 <tbody>
                   {Array.from({ length: numGames }, (_, row) => (
                     <tr key={row}>
-                      {/* Fixed Left Round Number Indicator */}
-                      <td className="round-cell">R{row + 1}</td>
-
                       {/* Player Score Cells */}
                       {players.map((p, col) => {
                         const isSelected =
@@ -1461,7 +1419,6 @@ export default function ScoreKeeper() {
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td className="round-cell round-foot">Total</td>
                     {players.map((p, i) => {
                       const total = playerTotals[i] ?? 0;
                       const isLeader = hasGameStarted && total === maxScore;
