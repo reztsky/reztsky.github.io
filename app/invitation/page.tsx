@@ -219,9 +219,19 @@ function InvitationContent() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isDuotone, setIsDuotone] = useState(false);
 
-  // Audio context reference for lightweight ambient harp tones
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  // MP3 audio reference
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("/foto_undangan/sheila.mp3");
+    audio.loop = true;
+    audio.volume = 0.5;
+    audioRef.current = audio;
+    return () => {
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
 
   // Countdown target: 19 November 2026, 13:30 WIB (UTC+7)
   const targetDate = new Date("2026-11-19T13:30:00+07:00").getTime();
@@ -269,76 +279,26 @@ function InvitationContent() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Gentle synthesizer for ambient celebration chime (no external mp3 dependency)
-  const playHarmonicTone = (freq: number, duration = 2.5) => {
-    if (!audioCtxRef.current) return;
-    try {
-      const ctx = audioCtxRef.current;
-      if (ctx.state === "suspended") {
-        ctx.resume();
-      }
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.06, ctx.currentTime + 0.1);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-
-      osc.start();
-      osc.stop(ctx.currentTime + duration);
-    } catch {
-      // Audio playback gracefully suppressed if browser policies disallow
-    }
-  };
-
   const startAmbientAudio = () => {
-    if (typeof window === "undefined") return;
-    try {
-      const AudioContextClass =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext })
-          .webkitAudioContext;
-      if (!audioCtxRef.current && AudioContextClass) {
-        audioCtxRef.current = new AudioContextClass();
-      }
-
-      const notes = [261.63, 329.63, 392.0, 523.25, 659.25]; // C major pentatonic
-      let noteIndex = 0;
-
-      // Play introductory gentle chord
-      playHarmonicTone(notes[0], 2.0);
-      setTimeout(() => playHarmonicTone(notes[2], 2.2), 350);
-      setTimeout(() => playHarmonicTone(notes[3], 2.5), 700);
-
-      if (audioIntervalRef.current) clearInterval(audioIntervalRef.current);
-      audioIntervalRef.current = setInterval(() => {
-        const freq = notes[noteIndex % notes.length];
-        playHarmonicTone(freq, 2.5);
-        noteIndex++;
-      }, 3500);
-
+    if (!audioRef.current) return;
+    audioRef.current.play().then(() => {
       setIsPlayingAudio(true);
       setAudioStarted(true);
-    } catch {
+    }).catch(() => {
       setIsPlayingAudio(false);
-    }
+    });
   };
 
   const toggleAudio = () => {
+    if (!audioRef.current) return;
     if (isPlayingAudio) {
-      if (audioIntervalRef.current) {
-        clearInterval(audioIntervalRef.current);
-        audioIntervalRef.current = null;
-      }
+      audioRef.current.pause();
       setIsPlayingAudio(false);
     } else {
-      startAmbientAudio();
+      audioRef.current.play().then(() => {
+        setIsPlayingAudio(true);
+        setAudioStarted(true);
+      }).catch(() => setIsPlayingAudio(false));
     }
   };
 
