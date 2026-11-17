@@ -212,7 +212,6 @@ function InvitationContent() {
 
   const [hasOpened, setHasOpened] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [audioStarted, setAudioStarted] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Gallery active slide state and duotone toggle
@@ -227,7 +226,49 @@ function InvitationContent() {
     audio.loop = true;
     audio.volume = 0.5;
     audioRef.current = audio;
+
+    const playAudio = () => {
+      audio
+        .play()
+        .then(() => {
+          setIsPlayingAudio(true);
+        })
+        .catch(() => {
+          // Autoplay blocked by browser policy without user gesture
+        });
+    };
+
+    // Callback on first user gesture anywhere on screen
+    const handleGesture = () => {
+      if (audio.paused) {
+        playAudio();
+      }
+      removeListeners();
+    };
+
+    const removeListeners = () => {
+      window.removeEventListener("click", handleGesture);
+      window.removeEventListener("touchstart", handleGesture);
+      window.removeEventListener("scroll", handleGesture);
+      window.removeEventListener("keydown", handleGesture);
+    };
+
+    // Attempt direct unmuted autoplay on load
+    audio
+      .play()
+      .then(() => {
+        setIsPlayingAudio(true);
+      })
+      .catch(() => {
+        // If browser blocks unmuted autoplay before gesture, listen for first touch/click/scroll/key
+        window.addEventListener("click", handleGesture, { passive: true });
+        window.addEventListener("touchstart", handleGesture, { passive: true });
+        window.addEventListener("scroll", handleGesture, { passive: true });
+        window.addEventListener("keydown", handleGesture, { passive: true });
+      });
+
     return () => {
+      removeListeners();
       audio.pause();
       audio.src = "";
     };
@@ -279,16 +320,6 @@ function InvitationContent() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  const startAmbientAudio = () => {
-    if (!audioRef.current) return;
-    audioRef.current.play().then(() => {
-      setIsPlayingAudio(true);
-      setAudioStarted(true);
-    }).catch(() => {
-      setIsPlayingAudio(false);
-    });
-  };
-
   const toggleAudio = () => {
     if (!audioRef.current) return;
     if (isPlayingAudio) {
@@ -297,15 +328,16 @@ function InvitationContent() {
     } else {
       audioRef.current.play().then(() => {
         setIsPlayingAudio(true);
-        setAudioStarted(true);
       }).catch(() => setIsPlayingAudio(false));
     }
   };
 
   const handleOpenInvitation = () => {
     setHasOpened(true);
-    if (!audioStarted) {
-      startAmbientAudio();
+    if (audioRef.current && audioRef.current.paused) {
+      audioRef.current.play().then(() => {
+        setIsPlayingAudio(true);
+      }).catch(() => {});
     }
     // Smooth scroll into main content container
     setTimeout(() => {
